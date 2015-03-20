@@ -3860,6 +3860,9 @@ declare module "typescript" {
         help?: boolean;
 >help : boolean
 
+        inlineSourceMap?: boolean;
+>inlineSourceMap : boolean
+
         listFiles?: boolean;
 >listFiles : boolean
 

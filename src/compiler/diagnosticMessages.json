@@ -1681,11 +1681,11 @@
         "category": "Error",
         "code": 5033
     },
-    "Option 'mapRoot' cannot be specified without specifying 'sourcemap' option.": {
+    "Option 'mapRoot' cannot be specified without specifying 'sourceMap' option.": {
         "category": "Error",
         "code": 5038
     },
-    "Option 'sourceRoot' cannot be specified without specifying 'sourcemap' option.": {
+    "Option 'sourceRoot' cannot be specified without specifying 'sourceMap' option.": {
         "category": "Error",
         "code": 5039
     },
@@ -1701,6 +1701,19 @@
         "category": "Error",
         "code": 5042
     },
+    "Option 'inlineSourceMap' cannot be specified without specifying 'sourceMap' option.": {
+        "category": "Error",
+        "code": 5043
+    },
+    "Option 'sourceRoot' cannot be specified with option 'inlineSourceMap'.": {
+        "category": "Error",
+        "code": 5044
+    },
+    "Option 'mapRoot' cannot be specified with option 'inlineSourceMap'.": {
+        "category": "Error",
+        "code": 5045
+    },
+
     "Concatenate and emit output to single file.": {
         "category": "Message",
         "code": 6001

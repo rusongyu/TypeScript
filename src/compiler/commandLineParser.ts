@@ -34,6 +34,10 @@ module ts {
             description: Diagnostics.Print_this_message,
         },
         {
+            name: "inlineSourceMap",
+            type: "boolean",
+        },
+        {
             name: "listFiles",
             type: "boolean",
         },

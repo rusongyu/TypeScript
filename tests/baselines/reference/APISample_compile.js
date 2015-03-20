@@ -1208,6 +1208,7 @@ declare module "typescript" {
         diagnostics?: boolean;
         emitBOM?: boolean;
         help?: boolean;
+        inlineSourceMap?: boolean;
         listFiles?: boolean;
         locale?: string;
         mapRoot?: string;

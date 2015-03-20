@@ -1765,6 +1765,8 @@ module ts {
                 };
                 let lastEncodedNameIndex = 0;
 
+                const base64Digits = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+
                 // Encoding for sourcemap span
                 function encodeLastRecordedSourceMapSpan() {
                     if (!lastRecordedSourceMapSpan || lastRecordedSourceMapSpan === lastEncodedSourceMapSpan) {
@@ -1811,7 +1813,7 @@ module ts {
                     function base64VLQFormatEncode(inValue: number) {
                         function base64FormatEncode(inValue: number) {
                             if (inValue < 64) {
-                                return 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'.charAt(inValue);
+                                return base64Digits.charAt(inValue);
                             }
                             throw TypeError(inValue + ": not a 64 based value");
                         }
@@ -1985,19 +1987,23 @@ module ts {
                     recordSourceMapSpan(comment.end);
                 }
 
-                function serializeSourceMapContents(version: number, file: string, sourceRoot: string, sources: string[], names: string[], mappings: string) {
+                function serializeSourceMapContents(version: number, file: string, sourceRoot: string, sources: string[], names: string[], mappings: string, sourcesContent?: string[]) {
                     if (typeof JSON !== "undefined") {
-                        return JSON.stringify({
+                        let map: any = {
                             version: version,
                             file: file,
                             sourceRoot: sourceRoot,
                             sources: sources,
                             names: names,
-                            mappings: mappings
-                        });
+                            mappings: mappings,
+                        };
+                        if (sourcesContent !== undefined) {
+                            map.sourcesContent = sourcesContent;
+                        }
+                        return JSON.stringify(map);
                     }
 
-                    return "{\"version\":" + version + ",\"file\":\"" + escapeString(file) + "\",\"sourceRoot\":\"" + escapeString(sourceRoot) + "\",\"sources\":[" + serializeStringArray(sources) + "],\"names\":[" + serializeStringArray(names) + "],\"mappings\":\"" + escapeString(mappings) + "\"}";
+                    return "{\"version\":" + version + ",\"file\":\"" + escapeString(file) + "\",\"sourceRoot\":\"" + escapeString(sourceRoot) + "\",\"sources\":[" + serializeStringArray(sources) + "],\"names\":[" + serializeStringArray(names) + "],\"mappings\":\"" + escapeString(mappings) + "\"" + (sourcesContent !== undefined ? ",\"sourcesContent\":[" + serializeStringArray(sourcesContent) + "]" : "") + "}";
 
                     function serializeStringArray(list: string[]): string {
                         let output = "";
@@ -2011,20 +2017,120 @@ module ts {
                     }
                 }
 
+                function convertToBase64(input: string): string {
+                    // Encode a string into Base64 to include it in a URI for instance.
+                    // Effectively what we are doing here is putting every 3 charachters 
+                    // into 4 base64 digits.
+                    // UTF-8 makes this a bit tricky as each charater may need to be expanded
+                    // to 1, 2 or 3 charaters to ensure the conversion is correct.
+                    // To do that we consider one character from the input at a time, for non-ASCII 
+                    // character expand them into 2 or 3 as appropriate. Then take 3 expanded chars
+                    // at a time and convert them into 4 base-64 digits and add them to the ouput.
+
+                    // Output
+                    var result = "";
+
+                    // A working set of charachter points to write in base64 encoding. We only need
+                    // 3 character points at a time, so the most number of points we can have is 5.
+                    var chars: number[] = new Array(5);
+
+                    // The current index in the working set
+                    var charIndex = 0;
+
+                    var length = input.length;
+                    var i = 0;
+
+                    // 4 base64 digits
+                    let byte1: number, byte2: number, byte3: number, byte4: number;
+
+                    // Keep looping as long as we have more characters to process in the input
+                    // or character points to process in the working set.
+                    while (i < length || charIndex > 0) {
+                        while (i < length && charIndex < 3) {
+                            // This can be a utf-8 charater, expand it as appropriate
+                            var charCode = input.charCodeAt(i++);
+                            if (charCode <= 127) {
+                                chars[charIndex++] = charCode;
+                            }
+                            else if (charCode < 2048) {
+                                chars[charIndex++] = (charCode >> 6) | 0B11000000;
+                                chars[charIndex++] = (charCode & 0B00111111) | 0B10000000;
+                            }
+                            else {
+                                chars[charIndex++] = (charCode >> 12) | 0B11100000;
+                                chars[charIndex++] = ((charCode >> 6) & 0B00111111) | 0B10000000;
+                                chars[charIndex++] = (charCode & 0B00111111) | 0B10000000;
+                            }
+                        }
+
+                        // We are out of characters in the input, clear out
+                        // the rest of the working set
+                        if (charIndex === 1) {
+                            chars[1] = chars[2] = 0;
+                        }
+                        else if (charIndex === 2) {
+                            chars[2] = 0;
+                        }
+
+                        // Convert every 6-bits in the input 3 character points
+                        // into a base64 digit
+                        byte1 = chars[0] >> 2;
+                        byte2 = (chars[0] & 0B00000011) << 4 | chars[1] >> 4;
+                        byte3 = (chars[1] & 0B00001111) << 2 | chars[2] >> 6;
+                        byte4 = chars[2] & 0B00111111;
+
+                        // We are out of characters in the input, set the extra
+                        // digits to 64
+                        if (charIndex === 1) {
+                            byte3 = byte4 = 64;
+                        }
+                        else if (charIndex === 2) {
+                            byte4 = 64;
+                        }
+
+                        // Write to the ouput
+                        result += base64Digits.charAt(byte1) + base64Digits.charAt(byte2) + base64Digits.charAt(byte3) + base64Digits.charAt(byte4);
+
+                        // If we still have remainder character points in the working set
+                        // shift them up, and update the index.
+                        if (charIndex > 3) {
+                            chars[0] = chars[3];
+                            chars[1] = chars[4];
+                        }
+                        charIndex -= 3;
+                    }
+
+                    return result;
+                }
+
                 function writeJavaScriptAndSourceMapFile(emitOutput: string, writeByteOrderMark: boolean) {
-                    // Write source map file
                     encodeLastRecordedSourceMapSpan();
-                    writeFile(host, diagnostics, sourceMapData.sourceMapFilePath, serializeSourceMapContents(
+
+                    let fileContents = compilerOptions.inlineSourceMap ? [currentSourceFile.text] : undefined;
+                    let sourceMapText = serializeSourceMapContents(
                         3,
                         sourceMapData.sourceMapFile,
                         sourceMapData.sourceMapSourceRoot,
                         sourceMapData.sourceMapSources,
                         sourceMapData.sourceMapNames,
-                        sourceMapData.sourceMapMappings), /*writeByteOrderMark*/ false);
+                        sourceMapData.sourceMapMappings,
+                        fileContents);
                     sourceMapDataList.push(sourceMapData);
 
+                    let sourceMapUrl: string;
+                    if (compilerOptions.inlineSourceMap) {
+                        // Encode the sourceMap into the sourceMap url
+                        let base64SourceMapText = convertToBase64(sourceMapText);
+                        sourceMapUrl = `//# sourceMappingURL=data:application/json;base64,${base64SourceMapText}`;
+                    }
+                    else {
+                        // Write source map file
+                        writeFile(host, diagnostics, sourceMapData.sourceMapFilePath, sourceMapText, /*writeByteOrderMark*/ false);
+                        sourceMapUrl = `//# sourceMappingURL=${sourceMapData.jsSourceMappingURL}`;
+                    }
+
                     // Write sourcemap url to the js file and write the js file
-                    writeJavaScriptFile(emitOutput + "//# sourceMappingURL=" + sourceMapData.jsSourceMappingURL, writeByteOrderMark);
+                    writeJavaScriptFile(emitOutput + sourceMapUrl, writeByteOrderMark);
                 }
 
                 // Initialize source map data

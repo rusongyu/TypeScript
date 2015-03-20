@@ -425,13 +425,26 @@ module ts {
         }
 
         function verifyCompilerOptions() {
-            if (!options.sourceMap && (options.mapRoot || options.sourceRoot)) {
+            if (!options.sourceMap && (options.mapRoot || options.sourceRoot || options.inlineSourceMap)) {
                 // Error to specify --mapRoot or --sourceRoot without mapSourceFiles
                 if (options.mapRoot) {
-                    diagnostics.add(createCompilerDiagnostic(Diagnostics.Option_mapRoot_cannot_be_specified_without_specifying_sourcemap_option));
+                    diagnostics.add(createCompilerDiagnostic(Diagnostics.Option_mapRoot_cannot_be_specified_without_specifying_sourceMap_option));
                 }
                 if (options.sourceRoot) {
-                    diagnostics.add(createCompilerDiagnostic(Diagnostics.Option_sourceRoot_cannot_be_specified_without_specifying_sourcemap_option));
+                    diagnostics.add(createCompilerDiagnostic(Diagnostics.Option_sourceRoot_cannot_be_specified_without_specifying_sourceMap_option));
+                }
+                if (options.inlineSourceMap) {
+                    diagnostics.add(createCompilerDiagnostic(Diagnostics.Option_inlineSourceMap_cannot_be_specified_without_specifying_sourceMap_option));
+                }
+                return;
+            }
+
+            if (options.inlineSourceMap && (options.mapRoot || options.sourceRoot)) {
+                if (options.mapRoot) {
+                    diagnostics.add(createCompilerDiagnostic(Diagnostics.Option_mapRoot_cannot_be_specified_with_option_inlineSourceMap));
+                }
+                if (options.sourceRoot) {
+                    diagnostics.add(createCompilerDiagnostic(Diagnostics.Option_sourceRoot_cannot_be_specified_with_option_inlineSourceMap));
                 }
                 return;
             }
