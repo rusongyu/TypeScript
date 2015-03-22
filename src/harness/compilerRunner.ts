@@ -229,7 +229,12 @@ class CompilerBaselineRunner extends RunnerBase {
 
             it('Correct Sourcemap output for ' + fileName, () => {
                 if (options.sourceMap) {
-                    if (result.sourceMaps.length !== result.files.length) {
+                    if (options.inlineSourceMap) {
+                        if (result.sourceMaps.length > 0) {
+                            throw new Error('No sourcemap files should be generated if inlineSourceMaps was set.');
+                        }
+                    }
+                    else if (result.sourceMaps.length !== result.files.length) {
                         throw new Error('Number of sourcemap files should be same as js files.');
                     }
 
