@@ -1,21 +1,7 @@
-//
-// Copyright (c) Microsoft Corporation.  All rights reserved.
-// 
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//   http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-
 /// <reference path="references.ts"/>
 
-module ts.formatting {
+/* @internal */
+namespace ts.formatting {
     export class FormattingContext {
         public currentTokenSpan: TextRangeWithKind;
         public nextTokenSpan: TextRangeWithKind;
@@ -71,9 +57,9 @@ module ts.formatting {
 
         public TokensAreOnSameLine(): boolean {
             if (this.tokensAreOnSameLine === undefined) {
-                let startLine = this.sourceFile.getLineAndCharacterOfPosition(this.currentTokenSpan.pos).line;
-                let endLine = this.sourceFile.getLineAndCharacterOfPosition(this.nextTokenSpan.pos).line;
-                this.tokensAreOnSameLine = (startLine == endLine);
+                const startLine = this.sourceFile.getLineAndCharacterOfPosition(this.currentTokenSpan.pos).line;
+                const endLine = this.sourceFile.getLineAndCharacterOfPosition(this.nextTokenSpan.pos).line;
+                this.tokensAreOnSameLine = (startLine === endLine);
             }
 
             return this.tokensAreOnSameLine;
@@ -96,17 +82,17 @@ module ts.formatting {
         }
 
         private NodeIsOnOneLine(node: Node): boolean {
-            let startLine = this.sourceFile.getLineAndCharacterOfPosition(node.getStart(this.sourceFile)).line;
-            let endLine = this.sourceFile.getLineAndCharacterOfPosition(node.getEnd()).line;
-            return startLine == endLine;
+            const startLine = this.sourceFile.getLineAndCharacterOfPosition(node.getStart(this.sourceFile)).line;
+            const endLine = this.sourceFile.getLineAndCharacterOfPosition(node.getEnd()).line;
+            return startLine === endLine;
         }
 
         private BlockIsOnOneLine(node: Node): boolean {
-            let openBrace = findChildOfKind(node, SyntaxKind.OpenBraceToken, this.sourceFile);
-            let closeBrace = findChildOfKind(node, SyntaxKind.CloseBraceToken, this.sourceFile);
+            const openBrace = findChildOfKind(node, SyntaxKind.OpenBraceToken, this.sourceFile);
+            const closeBrace = findChildOfKind(node, SyntaxKind.CloseBraceToken, this.sourceFile);
             if (openBrace && closeBrace) {
-                let startLine = this.sourceFile.getLineAndCharacterOfPosition(openBrace.getEnd()).line;
-                let endLine = this.sourceFile.getLineAndCharacterOfPosition(closeBrace.getStart(this.sourceFile)).line;
+                const startLine = this.sourceFile.getLineAndCharacterOfPosition(openBrace.getEnd()).line;
+                const endLine = this.sourceFile.getLineAndCharacterOfPosition(closeBrace.getStart(this.sourceFile)).line;
                 return startLine === endLine;
             }
             return false;

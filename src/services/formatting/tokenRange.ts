@@ -1,22 +1,8 @@
-//
-// Copyright (c) Microsoft Corporation.  All rights reserved.
-// 
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//   http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-
 ///<reference path='references.ts' />
 
-module ts.formatting {
-    export module Shared {
+/* @internal */
+namespace ts.formatting {
+    export namespace Shared {
         export interface ITokenAccess {
             GetTokens(): SyntaxKind[];
             Contains(token: SyntaxKind): boolean;
@@ -28,7 +14,7 @@ module ts.formatting {
             constructor(from: SyntaxKind, to: SyntaxKind, except: SyntaxKind[]) {
                 this.tokens = [];
                 for (let token = from; token <= to; token++) {
-                    if (except.indexOf(token) < 0) {
+                    if (ts.indexOf(except, token) < 0) {
                         this.tokens.push(token);
                     }
                 }
@@ -68,20 +54,20 @@ module ts.formatting {
             }
 
             public Contains(tokenValue: SyntaxKind): boolean {
-                return tokenValue == this.token;
+                return tokenValue === this.token;
             }
         }
 
         export class TokenAllAccess implements ITokenAccess {
             public GetTokens(): SyntaxKind[] {
-                let result: SyntaxKind[] = [];
+                const result: SyntaxKind[] = [];
                 for (let token = SyntaxKind.FirstToken; token <= SyntaxKind.LastToken; token++) {
                     result.push(token);
                 }
                 return result;
             }
 
-            public Contains(tokenValue: SyntaxKind): boolean {
+            public Contains(): boolean {
                 return true;
             }
 
@@ -126,7 +112,7 @@ module ts.formatting {
             static AnyIncludingMultilineComments = TokenRange.FromTokens(TokenRange.Any.GetTokens().concat([SyntaxKind.MultiLineCommentTrivia]));
             static Keywords = TokenRange.FromRange(SyntaxKind.FirstKeyword, SyntaxKind.LastKeyword);
             static BinaryOperators = TokenRange.FromRange(SyntaxKind.FirstBinaryOperator, SyntaxKind.LastBinaryOperator);
-            static BinaryKeywordOperators = TokenRange.FromTokens([SyntaxKind.InKeyword, SyntaxKind.InstanceOfKeyword, SyntaxKind.OfKeyword]);
+            static BinaryKeywordOperators = TokenRange.FromTokens([SyntaxKind.InKeyword, SyntaxKind.InstanceOfKeyword, SyntaxKind.OfKeyword, SyntaxKind.AsKeyword, SyntaxKind.IsKeyword]);
             static UnaryPrefixOperators = TokenRange.FromTokens([SyntaxKind.PlusPlusToken, SyntaxKind.MinusMinusToken, SyntaxKind.TildeToken, SyntaxKind.ExclamationToken]);
             static UnaryPrefixExpressions = TokenRange.FromTokens([SyntaxKind.NumericLiteral, SyntaxKind.Identifier, SyntaxKind.OpenParenToken, SyntaxKind.OpenBracketToken, SyntaxKind.OpenBraceToken, SyntaxKind.ThisKeyword, SyntaxKind.NewKeyword]);
             static UnaryPreincrementExpressions = TokenRange.FromTokens([SyntaxKind.Identifier, SyntaxKind.OpenParenToken, SyntaxKind.ThisKeyword, SyntaxKind.NewKeyword]);

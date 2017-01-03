@@ -73,25 +73,23 @@ interface testInterface2 {
 
 
 //// [errorsInGenericTypeReference.js]
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Foo = (function () {
     function Foo() {
     }
     return Foo;
-})();
+}());
 // in call type arguments
 var testClass1 = (function () {
     function testClass1() {
     }
-    testClass1.prototype.method = function () {
-    };
+    testClass1.prototype.method = function () { };
     return testClass1;
-})();
+}());
 var tc1 = new testClass1();
 tc1.method(); // error: could not find symbol V
 // in constructor type arguments
@@ -99,34 +97,26 @@ var testClass2 = (function () {
     function testClass2() {
     }
     return testClass2;
-})();
+}());
 var tc2 = new testClass2(); // error: could not find symbol V
 // in method return type annotation
 var testClass3 = (function () {
     function testClass3() {
     }
-    testClass3.prototype.testMethod1 = function () {
-        return null;
-    }; // error: could not find symbol V
-    testClass3.testMethod2 = function () {
-        return null;
-    }; // error: could not find symbol V
+    testClass3.prototype.testMethod1 = function () { return null; }; // error: could not find symbol V
+    testClass3.testMethod2 = function () { return null; }; // error: could not find symbol V
     Object.defineProperty(testClass3.prototype, "a", {
-        set: function (value) {
-        } // error: could not find symbol V
+        set: function (value) { } // error: could not find symbol V
         ,
         enumerable: true,
         configurable: true
     });
     return testClass3;
-})();
+}());
 // in function return type annotation
-function testFunction1() {
-    return null;
-} // error: could not find symbol V
+function testFunction1() { return null; } // error: could not find symbol V
 // in paramter types
-function testFunction2(p) {
-} // error: could not find symbol V
+function testFunction2(p) { } // error: could not find symbol V
 // in var type annotation
 var f; // error: could not find symbol V
 // in constraints
@@ -134,25 +124,24 @@ var testClass4 = (function () {
     function testClass4() {
     }
     return testClass4;
-})(); // error: could not find symbol V
+}()); // error: could not find symbol V
 var testClass6 = (function () {
     function testClass6() {
     }
-    testClass6.prototype.method = function () {
-    }; // error: could not find symbol V
+    testClass6.prototype.method = function () { }; // error: could not find symbol V
     return testClass6;
-})();
+}());
 // in extends clause
 var testClass7 = (function (_super) {
     __extends(testClass7, _super);
     function testClass7() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     return testClass7;
-})(Foo); // error: could not find symbol V
+}(Foo)); // error: could not find symbol V
 // in implements clause
 var testClass8 = (function () {
     function testClass8() {
     }
     return testClass8;
-})(); // error: could not find symbol V
+}()); // error: could not find symbol V

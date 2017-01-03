@@ -28,19 +28,11 @@ var Point = (function () {
         this.x = x;
         this.y = y;
     }
-    Point.Origin = function () {
-        return {
-            x: 0,
-            y: 0
-        };
-    };
+    Point.Origin = function () { return { x: 0, y: 0 }; };
     return Point;
-})();
-var Point;
+}());
 (function (Point) {
-    function Origin() {
-        return "";
-    } // not an error, since not exported
+    function Origin() { return ""; } // not an error, since not exported
 })(Point || (Point = {}));
 var A;
 (function (A) {
@@ -49,19 +41,11 @@ var A;
             this.x = x;
             this.y = y;
         }
-        Point.Origin = function () {
-            return {
-                x: 0,
-                y: 0
-            };
-        };
+        Point.Origin = function () { return { x: 0, y: 0 }; };
         return Point;
-    })();
+    }());
     A.Point = Point;
-    var Point;
     (function (Point) {
-        function Origin() {
-            return "";
-        } // not an error since not exported
+        function Origin() { return ""; } // not an error since not exported
     })(Point = A.Point || (A.Point = {}));
 })(A || (A = {}));

@@ -1,4 +1,5 @@
 === tests/cases/conformance/expressions/commaOperator/commaOperatorWithSecondOperandObjectType.ts ===
+
 var ANY: any;
 >ANY : any
 
@@ -87,16 +88,19 @@ var resultIsObject5 = (OBJECT, OBJECT);
 //Literal and expression
 null, OBJECT
 >null, OBJECT : Object
+>null : null
 >OBJECT : Object
 
 ANY = null, OBJECT
 >ANY = null, OBJECT : Object
 >ANY = null : null
 >ANY : any
+>null : null
 >OBJECT : Object
 
 true, {}
 >true, {} : {}
+>true : true
 >{} : {}
 
 !BOOLEAN, []
@@ -107,6 +111,7 @@ true, {}
 
 "string", new Date()
 >"string", new Date() : Date
+>"string" : "string"
 >new Date() : Date
 >Date : DateConstructor
 
@@ -123,6 +128,7 @@ var resultIsObject6 = (null, OBJECT);
 >resultIsObject6 : Object
 >(null, OBJECT) : Object
 >null, OBJECT : Object
+>null : null
 >OBJECT : Object
 
 var resultIsObject7 = (ANY = null, OBJECT);
@@ -131,12 +137,14 @@ var resultIsObject7 = (ANY = null, OBJECT);
 >ANY = null, OBJECT : Object
 >ANY = null : null
 >ANY : any
+>null : null
 >OBJECT : Object
 
 var resultIsObject8 = (true, {});
 >resultIsObject8 : {}
 >(true, {}) : {}
 >true, {} : {}
+>true : true
 >{} : {}
 
 var resultIsObject9 = (!BOOLEAN, { a: 1, b: "s" });
@@ -147,12 +155,15 @@ var resultIsObject9 = (!BOOLEAN, { a: 1, b: "s" });
 >BOOLEAN : boolean
 >{ a: 1, b: "s" } : { a: number; b: string; }
 >a : number
+>1 : 1
 >b : string
+>"s" : "s"
 
 var resultIsObject10 = ("string", new Date());
 >resultIsObject10 : Date
 >("string", new Date()) : Date
 >"string", new Date() : Date
+>"string" : "string"
 >new Date() : Date
 >Date : DateConstructor
 

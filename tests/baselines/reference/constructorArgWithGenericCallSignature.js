@@ -21,10 +21,9 @@ var Test;
         function MyClass(func) {
         }
         return MyClass;
-    })();
+    }());
     Test.MyClass = MyClass;
-    function F(func) {
-    }
+    function F(func) { }
     Test.F = F;
 })(Test || (Test = {}));
 var func;

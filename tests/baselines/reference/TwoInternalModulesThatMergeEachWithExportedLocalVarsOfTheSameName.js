@@ -30,31 +30,24 @@ export module A {
 
 
 //// [part1.js]
+"use strict";
 var A;
 (function (A) {
     var Utils;
     (function (Utils) {
         function mirror(p) {
-            return {
-                x: p.y,
-                y: p.x
-            };
+            return { x: p.y, y: p.x };
         }
         Utils.mirror = mirror;
     })(Utils = A.Utils || (A.Utils = {}));
-    A.Origin = {
-        x: 0,
-        y: 0
-    };
+    A.Origin = { x: 0, y: 0 };
 })(A = exports.A || (exports.A = {}));
 //// [part2.js]
+"use strict";
 var A;
 (function (A) {
     // collision with 'Origin' var in other part of merged module
-    A.Origin = {
-        x: 0,
-        y: 0
-    };
+    A.Origin = { x: 0, y: 0 };
     var Utils;
     (function (Utils) {
         var Plane = (function () {
@@ -63,7 +56,7 @@ var A;
                 this.br = br;
             }
             return Plane;
-        })();
+        }());
         Utils.Plane = Plane;
     })(Utils = A.Utils || (A.Utils = {}));
 })(A = exports.A || (exports.A = {}));

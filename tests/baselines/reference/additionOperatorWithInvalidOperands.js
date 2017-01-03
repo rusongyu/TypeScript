@@ -41,15 +41,13 @@ var r19 = E.a + C.foo();
 var r20 = E.a + M;
 
 //// [additionOperatorWithInvalidOperands.js]
-function foo() {
-}
+function foo() { }
 var C = (function () {
     function C() {
     }
-    C.foo = function () {
-    };
+    C.foo = function () { };
     return C;
-})();
+}());
 var E;
 (function (E) {
     E[E["a"] = 0] = "a";
@@ -58,7 +56,6 @@ var E;
 })(E || (E = {}));
 var M;
 (function (M) {
-    M.a;
 })(M || (M = {}));
 var a;
 var b;

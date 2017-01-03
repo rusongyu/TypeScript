@@ -7,26 +7,32 @@ class C {
 
     public a = '';
 >a : string
+>'' : ""
 
     public b: string = '';
 >b : string
+>'' : ""
 
     public c() { return '' }
 >c : () => string
+>'' : ""
 
     public d = () => '';
 >d : () => string
 >() => '' : () => string
+>'' : ""
 
     public static e;
 >e : any
 
     public static f() { return '' }
 >f : () => string
+>'' : ""
 
     public static g = () => '';
 >g : () => string
 >() => '' : () => string
+>'' : ""
 }
 
 // all of these are valid

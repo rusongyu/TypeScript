@@ -85,11 +85,10 @@ declare module AmbientMod {
 
 
 //// [es6ClassTest.js]
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Bar = (function () {
     function Bar(n) {
@@ -98,29 +97,26 @@ var Bar = (function () {
         return x;
     };
     return Bar;
-})();
+}());
 // new-style class
 var Foo = (function (_super) {
     __extends(Foo, _super);
     function Foo(x, y, z) {
         if (z === void 0) { z = 0; }
-        _super.call(this, x);
-        this.y = y;
-        this.z = z;
-        this.gar = 0;
-        this.zoo = "zoo";
-        this.x = x;
-        this.gar = 5;
+        var _this = _super.call(this, x) || this;
+        _this.y = y;
+        _this.z = z;
+        _this.gar = 0;
+        _this.zoo = "zoo";
+        _this.x = x;
+        _this.gar = 5;
+        return _this;
     }
-    Foo.prototype.bar = function () {
-        return 0;
-    };
-    Foo.prototype.boo = function (x) {
-        return x;
-    };
-    Foo.statVal = 0;
+    Foo.prototype.bar = function () { return 0; };
+    Foo.prototype.boo = function (x) { return x; };
     return Foo;
-})(Bar);
+}(Bar));
+Foo.statVal = 0;
 var f = new Foo();
 //class GetSetMonster {
 //  // attack(target) {

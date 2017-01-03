@@ -29,11 +29,10 @@ function foo5<T, U>(t: T, u: U): Object {
 //// [bestCommonTypeOfConditionalExpressions.js]
 // conditional expressions return the best common type of the branches plus contextual type (using the first candidate if multiple BCTs exist)
 // no errors expected here
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var a;
 var b;
@@ -41,21 +40,21 @@ var Base = (function () {
     function Base() {
     }
     return Base;
-})();
+}());
 var Derived = (function (_super) {
     __extends(Derived, _super);
     function Derived() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     return Derived;
-})(Base);
+}(Base));
 var Derived2 = (function (_super) {
     __extends(Derived2, _super);
     function Derived2() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     return Derived2;
-})(Base);
+}(Base));
 var base;
 var derived;
 var derived2;
@@ -63,15 +62,9 @@ var r = true ? 1 : 2;
 var r3 = true ? 1 : {};
 var r4 = true ? a : b; // typeof a
 var r5 = true ? b : a; // typeof b
-var r6 = true ? function (x) {
-} : function (x) {
-}; // returns number => void
-var r7 = true ? function (x) {
-} : function (x) {
-};
-var r8 = true ? function (x) {
-} : function (x) {
-}; // returns Object => void
+var r6 = true ? function (x) { } : function (x) { }; // returns number => void
+var r7 = true ? function (x) { } : function (x) { };
+var r8 = true ? function (x) { } : function (x) { }; // returns Object => void
 var r10 = true ? derived : derived2; // no error since we use the contextual type in BCT
 var r11 = true ? base : derived2;
 function foo5(t, u) {

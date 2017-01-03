@@ -33,45 +33,44 @@ t4[2] = 10;
 
 
 //// [castingTuple.js]
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var A = (function () {
     function A() {
         this.a = 10;
     }
     return A;
-})();
+}());
 var C = (function () {
     function C() {
     }
     return C;
-})();
+}());
 ;
 var D = (function () {
     function D() {
     }
     return D;
-})();
+}());
 ;
 var E = (function (_super) {
     __extends(E, _super);
     function E() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     return E;
-})(A);
+}(A));
 ;
 var F = (function (_super) {
     __extends(F, _super);
     function F() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     return F;
-})(A);
+}(A));
 ;
 var E1;
 (function (E1) {
@@ -82,39 +81,20 @@ var E2;
     E2[E2["one"] = 0] = "one";
 })(E2 || (E2 = {}));
 // no error
-var numStrTuple = [
-    5,
-    "foo"
-];
+var numStrTuple = [5, "foo"];
 var emptyObjTuple = numStrTuple;
 var numStrBoolTuple = numStrTuple;
-var classCDTuple = [
-    new C(),
-    new D()
-];
+var classCDTuple = [new C(), new D()];
 var interfaceIITuple = classCDTuple;
 var classCDATuple = classCDTuple;
 var eleFromCDA1 = classCDATuple[2]; // A
 var eleFromCDA2 = classCDATuple[5]; // C | D | A
-var t10 = [
-    E1.one,
-    E2.one
-];
+var t10 = [E1.one, E2.one];
 var t11 = t10;
 var array1 = emptyObjTuple;
-var unionTuple = [
-    new C(),
-    "foo"
-];
-var unionTuple2 = [
-    new C(),
-    "foo",
-    new D()
-];
-var unionTuple3 = [
-    10,
-    "foo"
-];
+var unionTuple = [new C(), "foo"];
+var unionTuple2 = [new C(), "foo", new D()];
+var unionTuple3 = [10, "foo"];
 var unionTuple4 = unionTuple3;
 // error
 var t3 = numStrTuple;

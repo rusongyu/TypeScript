@@ -4,9 +4,10 @@ export default function f() { }
 
 
 //// [es5ExportDefaultFunctionDeclaration.js]
-function f() {
-}
-exports.f = f;
+"use strict";
+function f() { }
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = f;
 
 
 //// [es5ExportDefaultFunctionDeclaration.d.ts]

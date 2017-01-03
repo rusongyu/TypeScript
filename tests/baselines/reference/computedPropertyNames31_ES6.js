@@ -23,13 +23,11 @@ class Base {
 }
 class C extends Base {
     foo() {
-        var _this = this;
-        (() => {
+        () => {
             var obj = {
-                [super.bar()]() {
-                } // needs capture
+                [super.bar()]() { } // needs capture
             };
-        });
+        };
         return 0;
     }
 }

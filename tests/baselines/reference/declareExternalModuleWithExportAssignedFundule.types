@@ -6,8 +6,8 @@ declare module "express" {
 
     function express(): express.ExpressServer;
 >express : typeof express
->express : unknown
->ExpressServer : export=.ExpressServer
+>express : any
+>ExpressServer : express.ExpressServer
 
     module express {
 >express : typeof express

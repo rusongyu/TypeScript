@@ -40,15 +40,13 @@ var r19 = a + { a: '' };
 var r20 = a + ((a: string) => { return a });
 
 //// [additionOperatorWithAnyAndEveryType.js]
-function foo() {
-}
+function foo() { }
 var C = (function () {
     function C() {
     }
-    C.foo = function () {
-    };
+    C.foo = function () { };
     return C;
-})();
+}());
 var E;
 (function (E) {
     E[E["a"] = 0] = "a";
@@ -57,7 +55,6 @@ var E;
 })(E || (E = {}));
 var M;
 (function (M) {
-    M.a;
 })(M || (M = {}));
 var a;
 var b;
@@ -85,9 +82,5 @@ var r15 = a + E.a;
 var r16 = a + M;
 var r17 = a + '';
 var r18 = a + 123;
-var r19 = a + {
-    a: ''
-};
-var r20 = a + (function (a) {
-    return a;
-});
+var r19 = a + { a: '' };
+var r20 = a + (function (a) { return a; });

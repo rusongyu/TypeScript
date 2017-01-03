@@ -21,19 +21,18 @@ class TextBase implements IText {
 }
 
 //// [classSideInheritance2.js]
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var SubText = (function (_super) {
     __extends(SubText, _super);
     function SubText(text, span) {
-        _super.call(this);
+        return _super.call(this) || this;
     }
     return SubText;
-})(TextBase);
+}(TextBase));
 var TextBase = (function () {
     function TextBase() {
     }
@@ -41,4 +40,4 @@ var TextBase = (function () {
         return new SubText(this, span);
     };
     return TextBase;
-})();
+}());

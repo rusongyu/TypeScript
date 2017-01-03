@@ -16,10 +16,8 @@ var TestFile = (function () {
         var _this = this;
         /// <summary>Test summary</summary>
         /// <param name="message" type="String" />
-        var getMessage = function () {
-            return message + _this.name;
-        };
+        var getMessage = function () { return message + _this.name; };
         this.message = getMessage();
     }
     return TestFile;
-})();
+}());

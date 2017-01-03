@@ -29,35 +29,26 @@ class D extends C {
 
 //// [classWithProtectedProperty.js]
 // accessing any protected outside the class is an error
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var C = (function () {
     function C() {
         this.a = '';
         this.b = '';
-        this.d = function () {
-            return '';
-        };
+        this.d = function () { return ''; };
     }
-    C.prototype.c = function () {
-        return '';
-    };
-    C.f = function () {
-        return '';
-    };
-    C.g = function () {
-        return '';
-    };
+    C.prototype.c = function () { return ''; };
+    C.f = function () { return ''; };
     return C;
-})();
+}());
+C.g = function () { return ''; };
 var D = (function (_super) {
     __extends(D, _super);
     function D() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     D.prototype.method = function () {
         // No errors
@@ -72,4 +63,4 @@ var D = (function (_super) {
         var r8 = C.g();
     };
     return D;
-})(C);
+}(C));

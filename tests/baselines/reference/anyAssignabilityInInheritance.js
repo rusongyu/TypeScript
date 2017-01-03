@@ -103,13 +103,13 @@ var A = (function () {
     function A() {
     }
     return A;
-})();
+}());
 var r3 = foo3(a); // any
 var A2 = (function () {
     function A2() {
     }
     return A2;
-})();
+}());
 var r3 = foo3(a); // any
 var r3 = foo3(a); // any
 var r3 = foo3(a); // any
@@ -118,9 +118,7 @@ var E;
     E[E["A"] = 0] = "A";
 })(E || (E = {}));
 var r3 = foo3(a); // any
-function f() {
-}
-var f;
+function f() { }
 (function (f) {
     f.bar = 1;
 })(f || (f = {}));
@@ -129,8 +127,7 @@ var CC = (function () {
     function CC() {
     }
     return CC;
-})();
-var CC;
+}());
 (function (CC) {
     CC.bar = 1;
 })(CC || (CC = {}));

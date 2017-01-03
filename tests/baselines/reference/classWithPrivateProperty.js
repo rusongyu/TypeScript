@@ -28,21 +28,13 @@ var C = (function () {
     function C() {
         this.a = '';
         this.b = '';
-        this.d = function () {
-            return '';
-        };
+        this.d = function () { return ''; };
     }
-    C.prototype.c = function () {
-        return '';
-    };
-    C.f = function () {
-        return '';
-    };
-    C.g = function () {
-        return '';
-    };
+    C.prototype.c = function () { return ''; };
+    C.f = function () { return ''; };
     return C;
-})();
+}());
+C.g = function () { return ''; };
 var c = new C();
 var r1 = c.x;
 var r2 = c.a;

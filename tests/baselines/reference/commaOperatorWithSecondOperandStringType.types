@@ -1,4 +1,5 @@
 === tests/cases/conformance/expressions/commaOperator/commaOperatorWithSecondOperandStringType.ts ===
+
 var ANY: any;
 >ANY : any
 
@@ -83,6 +84,7 @@ var resultIsString5 = (OBJECT, STRING);
 //Literal and expression
 null, STRING;
 >null, STRING : string
+>null : null
 >STRING : string
 
 ANY = new Date(), STRING;
@@ -94,17 +96,22 @@ ANY = new Date(), STRING;
 >STRING : string
 
 true, "";
->true, "" : string
+>true, "" : ""
+>true : true
+>"" : ""
 
 BOOLEAN == undefined, "";
->BOOLEAN == undefined, "" : string
+>BOOLEAN == undefined, "" : ""
 >BOOLEAN == undefined : boolean
 >BOOLEAN : boolean
 >undefined : undefined
+>"" : ""
 
 ["a", "b"], NUMBER.toString();
 >["a", "b"], NUMBER.toString() : string
 >["a", "b"] : string[]
+>"a" : "a"
+>"b" : "b"
 >NUMBER.toString() : string
 >NUMBER.toString : (radix?: number) => string
 >NUMBER : number
@@ -118,11 +125,13 @@ OBJECT = new Object, STRING + "string";
 >Object : ObjectConstructor
 >STRING + "string" : string
 >STRING : string
+>"string" : "string"
 
 var resultIsString6 = (null, STRING);
 >resultIsString6 : string
 >(null, STRING) : string
 >null, STRING : string
+>null : null
 >STRING : string
 
 var resultIsString7 = (ANY = new Date(), STRING);
@@ -137,22 +146,27 @@ var resultIsString7 = (ANY = new Date(), STRING);
 
 var resultIsString8 = (true, "");
 >resultIsString8 : string
->(true, "") : string
->true, "" : string
+>(true, "") : ""
+>true, "" : ""
+>true : true
+>"" : ""
 
 var resultIsString9 = (BOOLEAN == undefined, "");
 >resultIsString9 : string
->(BOOLEAN == undefined, "") : string
->BOOLEAN == undefined, "" : string
+>(BOOLEAN == undefined, "") : ""
+>BOOLEAN == undefined, "" : ""
 >BOOLEAN == undefined : boolean
 >BOOLEAN : boolean
 >undefined : undefined
+>"" : ""
 
 var resultIsString10 = (["a", "b"], NUMBER.toString());
 >resultIsString10 : string
 >(["a", "b"], NUMBER.toString()) : string
 >["a", "b"], NUMBER.toString() : string
 >["a", "b"] : string[]
+>"a" : "a"
+>"b" : "b"
 >NUMBER.toString() : string
 >NUMBER.toString : (radix?: number) => string
 >NUMBER : number
@@ -166,4 +180,5 @@ var resultIsString11 = (new Object, STRING + "string");
 >Object : ObjectConstructor
 >STRING + "string" : string
 >STRING : string
+>"string" : "string"
 

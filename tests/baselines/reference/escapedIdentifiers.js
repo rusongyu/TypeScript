@@ -1,4 +1,5 @@
 //// [escapedIdentifiers.ts]
+
 /*
     0 .. \u0030
     9 .. \u0039
@@ -140,11 +141,9 @@ b++;
 // modules
 var moduleType1;
 (function (moduleType1) {
-    moduleType1.baz1;
 })(moduleType1 || (moduleType1 = {}));
 var moduleType\u0032;
-(function (moduleType2) {
-    moduleType2.baz2;
+(function (moduleType\u0032) {
 })(moduleType\u0032 || (moduleType\u0032 = {}));
 moduleType1.baz1 = 3;
 moduleType\u0031.baz1 = 3;
@@ -155,12 +154,12 @@ var classType1 = (function () {
     function classType1() {
     }
     return classType1;
-})();
+}());
 var classType\u0032 = (function () {
     function classType\u0032() {
     }
     return classType\u0032;
-})();
+}());
 var classType1Object1 = new classType1();
 classType1Object1.foo1 = 2;
 var classType1Object2 = new classType\u0031();
@@ -169,21 +168,13 @@ var classType2Object1 = new classType2();
 classType2Object1.foo2 = 2;
 var classType2Object2 = new classType\u0032();
 classType2Object2.foo2 = 2;
-var interfaceType1Object1 = {
-    bar1: 0
-};
+var interfaceType1Object1 = { bar1: 0 };
 interfaceType1Object1.bar1 = 2;
-var interfaceType1Object2 = {
-    bar1: 0
-};
+var interfaceType1Object2 = { bar1: 0 };
 interfaceType1Object2.bar1 = 2;
-var interfaceType2Object1 = {
-    bar2: 0
-};
+var interfaceType2Object1 = { bar2: 0 };
 interfaceType2Object1.bar2 = 2;
-var interfaceType2Object2 = {
-    bar2: 0
-};
+var interfaceType2Object2 = { bar2: 0 };
 interfaceType2Object2.bar2 = 2;
 // arguments
 var testClass = (function () {
@@ -196,7 +187,7 @@ var testClass = (function () {
         arg4 = 2;
     };
     return testClass;
-})();
+}());
 // constructors
 var constructorTestClass = (function () {
     function constructorTestClass(arg1, arg\u0032, arg\u0033, arg4) {
@@ -206,7 +197,7 @@ var constructorTestClass = (function () {
         this.arg4 = arg4;
     }
     return constructorTestClass;
-})();
+}());
 var constructorTestObject = new constructorTestClass(1, 'string', true, 2);
 constructorTestObject.arg\u0031 = 1;
 constructorTestObject.arg2 = 'string';

@@ -47,20 +47,12 @@ export var M;
         var x;
     })(M_M = M.M_M || (M.M_M = {}));
     // function
-    function M_F() {
-    }
+    function M_F() { }
     M.M_F = M_F;
     // enum
+    var M_E;
     (function (M_E) {
-    })(M.M_E || (M.M_E = {}));
-    var M_E = M.M_E;
+    })(M_E = M.M_E || (M.M_E = {}));
     // alias
     M.M_A = M_M;
-    // Reexports
-    export { M_V as v };
-    export { M_C as c };
-    export { M_M as m };
-    export { M_F as f };
-    export { M_E as e };
-    export { M_A as a };
 })(M || (M = {}));

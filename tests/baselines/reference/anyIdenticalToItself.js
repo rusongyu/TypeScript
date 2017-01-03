@@ -13,8 +13,7 @@ class C {
 }
 
 //// [anyIdenticalToItself.js]
-function foo(x, y) {
-}
+function foo(x, y) { }
 var C = (function () {
     function C() {
     }
@@ -29,4 +28,4 @@ var C = (function () {
         configurable: true
     });
     return C;
-})();
+}());

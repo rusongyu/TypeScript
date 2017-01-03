@@ -21,6 +21,7 @@ extractIndexer({
 
     [a]: ""
 >a : any
+>"" : ""
 
 }); // Should return string
 
@@ -33,15 +34,19 @@ extractIndexer({
 >E.x : E
 >E : typeof E
 >x : E
+>"" : ""
 
 }); // Should return string
 
 extractIndexer({
->extractIndexer({    ["" || 0]: ""}) : any
+>extractIndexer({    ["" || 0]: ""}) : string
 >extractIndexer : <T>(p: { [n: number]: T; }) => T
->{    ["" || 0]: ""} : { [x: number]: undefined; }
+>{    ["" || 0]: ""} : { [x: number]: string; }
 
     ["" || 0]: ""
->"" || 0 : string | number
+>"" || 0 : 0
+>"" : ""
+>0 : 0
+>"" : ""
 
 }); // Should return any (widened form of undefined)

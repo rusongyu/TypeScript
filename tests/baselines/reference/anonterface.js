@@ -24,10 +24,8 @@ var M;
             return fn(n2);
         };
         return C;
-    })();
+    }());
     M.C = C;
 })(M || (M = {}));
 var c = new M.C();
-c.m(function (n) {
-    return "hello: " + n;
-}, 18);
+c.m(function (n) { return "hello: " + n; }, 18);

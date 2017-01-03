@@ -6,22 +6,16 @@ class C {
 }
 
 //// [decoratorOnClassMethod7.js]
-var __decorate = this.__decorate || function (decorators, target, key, value) {
-    var kind = typeof (arguments.length == 2 ? value = target : value);
-    for (var i = decorators.length - 1; i >= 0; --i) {
-        var decorator = decorators[i];
-        switch (kind) {
-            case "function": value = decorator(value) || value; break;
-            case "number": decorator(target, key, value); break;
-            case "undefined": decorator(target, key); break;
-            case "object": value = decorator(target, key, value) || value; break;
-        }
-    }
-    return value;
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 class C {
-    [_a = "method"]() {
-    }
+    [_a = "method"]() { }
 }
-Object.defineProperty(C.prototype, _a, __decorate([dec], C.prototype, _a, Object.getOwnPropertyDescriptor(C.prototype, _a)));
+__decorate([
+    dec
+], C.prototype, _a, null);
 var _a;

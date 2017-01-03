@@ -1,4 +1,5 @@
 === tests/cases/conformance/expressions/commaOperator/commaOperatorWithSecondOperandNumberType.ts ===
+
 var ANY: any;
 >ANY : any
 
@@ -80,6 +81,7 @@ var resultIsNumber5 = (OBJECT, NUMBER);
 //Literal and expression
 null, NUMBER;
 >null, NUMBER : number
+>null : null
 >NUMBER : number
 
 ANY = undefined, NUMBER;
@@ -90,31 +92,39 @@ ANY = undefined, NUMBER;
 >NUMBER : number
 
 true, 1;
->true, 1 : number
+>true, 1 : 1
+>true : true
+>1 : 1
 
 BOOLEAN = false, 1;
->BOOLEAN = false, 1 : number
->BOOLEAN = false : boolean
+>BOOLEAN = false, 1 : 1
+>BOOLEAN = false : false
 >BOOLEAN : boolean
+>false : false
+>1 : 1
 
 "", NUMBER = 1;
->"", NUMBER = 1 : number
->NUMBER = 1 : number
+>"", NUMBER = 1 : 1
+>"" : ""
+>NUMBER = 1 : 1
 >NUMBER : number
+>1 : 1
 
 STRING.trim(), NUMBER = 1;
->STRING.trim(), NUMBER = 1 : number
+>STRING.trim(), NUMBER = 1 : 1
 >STRING.trim() : string
 >STRING.trim : () => string
 >STRING : string
 >trim : () => string
->NUMBER = 1 : number
+>NUMBER = 1 : 1
 >NUMBER : number
+>1 : 1
 
 var resultIsNumber6 = (null, NUMBER);
 >resultIsNumber6 : number
 >(null, NUMBER) : number
 >null, NUMBER : number
+>null : null
 >NUMBER : number
 
 var resultIsNumber7 = (ANY = undefined, NUMBER);
@@ -128,31 +138,38 @@ var resultIsNumber7 = (ANY = undefined, NUMBER);
 
 var resultIsNumber8 = (true, 1);
 >resultIsNumber8 : number
->(true, 1) : number
->true, 1 : number
+>(true, 1) : 1
+>true, 1 : 1
+>true : true
+>1 : 1
 
 var resultIsNumber9 = (BOOLEAN = false, 1);
 >resultIsNumber9 : number
->(BOOLEAN = false, 1) : number
->BOOLEAN = false, 1 : number
->BOOLEAN = false : boolean
+>(BOOLEAN = false, 1) : 1
+>BOOLEAN = false, 1 : 1
+>BOOLEAN = false : false
 >BOOLEAN : boolean
+>false : false
+>1 : 1
 
 var resultIsNumber10 = ("", NUMBER = 1);
 >resultIsNumber10 : number
->("", NUMBER = 1) : number
->"", NUMBER = 1 : number
->NUMBER = 1 : number
+>("", NUMBER = 1) : 1
+>"", NUMBER = 1 : 1
+>"" : ""
+>NUMBER = 1 : 1
 >NUMBER : number
+>1 : 1
 
 var resultIsNumber11 = (STRING.trim(), NUMBER = 1);
 >resultIsNumber11 : number
->(STRING.trim(), NUMBER = 1) : number
->STRING.trim(), NUMBER = 1 : number
+>(STRING.trim(), NUMBER = 1) : 1
+>STRING.trim(), NUMBER = 1 : 1
 >STRING.trim() : string
 >STRING.trim : () => string
 >STRING : string
 >trim : () => string
->NUMBER = 1 : number
+>NUMBER = 1 : 1
 >NUMBER : number
+>1 : 1
 

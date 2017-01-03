@@ -1,6 +1,7 @@
 //// [compoundAssignmentLHSIsValue.ts]
+
 // expected error for all the LHS of compound assignments (arithmetic and addition)
-var value;
+var value: any;
 
 // this
 class C {
@@ -123,11 +124,10 @@ foo() += value;
 (foo()) += value;
 
 //// [compoundAssignmentLHSIsValue.js]
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 // expected error for all the LHS of compound assignments (arithmetic and addition)
 var value;
@@ -146,7 +146,7 @@ var C = (function () {
         this += value;
     };
     return C;
-})();
+}());
 function foo() {
     this *= value;
     this += value;
@@ -156,7 +156,6 @@ this += value;
 // identifiers: module, class, enum, function
 var M;
 (function (M) {
-    M.a;
 })(M || (M = {}));
 M *= value;
 M += value;
@@ -192,21 +191,16 @@ value;
 }
 value;
 // array literals
-[
-    '',
-    ''
-] *= value;
-[
-    '',
-    ''
-] += value;
+['', ''] *= value;
+['', ''] += value;
 // super
 var Derived = (function (_super) {
     __extends(Derived, _super);
     function Derived() {
-        _super.call(this);
+        var _this = _super.call(this) || this;
         _super.prototype. *= value;
         _super.prototype. += value;
+        return _this;
     }
     Derived.prototype.foo = function () {
         _super.prototype. *= value;
@@ -217,19 +211,15 @@ var Derived = (function (_super) {
         _super. += value;
     };
     return Derived;
-})(C);
+}(C));
 // function expression
-function bar1() {
-}
+function bar1() { }
 value;
-function bar2() {
-}
+function bar2() { }
 value;
-(function () {
-});
+(function () { });
 value;
-(function () {
-});
+(function () { });
 value;
 // function calls
 foo() *= value;
@@ -259,9 +249,7 @@ foo() += value;
 ({}) += value;
 ([]) *= value;
 ([]) += value;
-(function baz1() {
-}) *= value;
-(function baz2() {
-}) += value;
+(function baz1() { }) *= value;
+(function baz2() { }) += value;
 (foo()) *= value;
 (foo()) += value;

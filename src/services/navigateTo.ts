@@ -1,20 +1,24 @@
-module ts.NavigateTo {
+/* @internal */
+namespace ts.NavigateTo {
     type RawNavigateToItem = { name: string; fileName: string; matchKind: PatternMatchKind; isCaseSensitive: boolean; declaration: Declaration };
 
-    export function getNavigateToItems(program: Program, cancellationToken: CancellationTokenObject, searchValue: string, maxResultCount: number): NavigateToItem[] {
-        let patternMatcher = createPatternMatcher(searchValue);
+    export function getNavigateToItems(sourceFiles: SourceFile[], checker: TypeChecker, cancellationToken: CancellationToken, searchValue: string, maxResultCount: number, excludeDtsFiles: boolean): NavigateToItem[] {
+        const patternMatcher = createPatternMatcher(searchValue);
         let rawItems: RawNavigateToItem[] = [];
 
-        // Search the declarations in all files and output matched NavigateToItem into array of NavigateToItem[] 
-        forEach(program.getSourceFiles(), sourceFile => {
+        // Search the declarations in all files and output matched NavigateToItem into array of NavigateToItem[]
+        forEach(sourceFiles, sourceFile => {
             cancellationToken.throwIfCancellationRequested();
 
-            let declarations = sourceFile.getNamedDeclarations();
-            for (let declaration of declarations) {
-                var name = getDeclarationName(declaration);
-                if (name !== undefined) {
+            if (excludeDtsFiles && fileExtensionIs(sourceFile.fileName, ".d.ts")) {
+                return;
+            }
 
-                    // First do a quick check to see if the name of the declaration matches the 
+            const nameToDeclarations = sourceFile.getNamedDeclarations();
+            for (const name in nameToDeclarations) {
+                const declarations = nameToDeclarations[name];
+                if (declarations) {
+                    // First do a quick check to see if the name of the declaration matches the
                     // last portion of the (possibly) dotted name they're searching for.
                     let matches = patternMatcher.getMatchesForLastSegmentOfPattern(name);
 
@@ -22,25 +26,40 @@ module ts.NavigateTo {
                         continue;
                     }
 
-                    // It was a match!  If the pattern has dots in it, then also see if hte 
-                    // declaration container matches as well.
-                    if (patternMatcher.patternContainsDots) {
-                        let containers = getContainers(declaration);
-                        if (!containers) {
-                            return undefined;
+                    for (const declaration of declarations) {
+                        // It was a match!  If the pattern has dots in it, then also see if the
+                        // declaration container matches as well.
+                        if (patternMatcher.patternContainsDots) {
+                            const containers = getContainers(declaration);
+                            if (!containers) {
+                                return undefined;
+                            }
+
+                            matches = patternMatcher.getMatches(containers, name);
+
+                            if (!matches) {
+                                continue;
+                            }
                         }
 
-                        matches = patternMatcher.getMatches(containers, name);
-
-                        if (!matches) {
-                            continue;
-                        }
+                        const fileName = sourceFile.fileName;
+                        const matchKind = bestMatchKind(matches);
+                        rawItems.push({ name, fileName, matchKind, isCaseSensitive: allMatchesAreCaseSensitive(matches), declaration });
                     }
-
-                    let fileName = sourceFile.fileName;
-                    let matchKind = bestMatchKind(matches);
-                    rawItems.push({ name, fileName, matchKind, isCaseSensitive: allMatchesAreCaseSensitive(matches), declaration });
                 }
+            }
+        });
+
+        // Remove imports when the imported declaration is already in the list and has the same name.
+        rawItems = filter(rawItems, item => {
+            const decl = item.declaration;
+            if (decl.kind === SyntaxKind.ImportClause || decl.kind === SyntaxKind.ImportSpecifier || decl.kind === SyntaxKind.ImportEqualsDeclaration) {
+                const importer = checker.getSymbolAtLocation(decl.name);
+                const imported = checker.getAliasedSymbol(importer);
+                return importer.name !== imported.name;
+            }
+            else {
+                return true;
             }
         });
 
@@ -49,7 +68,7 @@ module ts.NavigateTo {
             rawItems = rawItems.slice(0, maxResultCount);
         }
 
-        let items = map(rawItems, createNavigateToItem);
+        const items = map(rawItems, createNavigateToItem);
 
         return items;
 
@@ -57,7 +76,7 @@ module ts.NavigateTo {
             Debug.assert(matches.length > 0);
 
             // This is a case sensitive match, only if all the submatches were case sensitive.
-            for (let match of matches) {
+            for (const match of matches) {
                 if (!match.isCaseSensitive) {
                     return false;
                 }
@@ -66,30 +85,14 @@ module ts.NavigateTo {
             return true;
         }
 
-        function getDeclarationName(declaration: Declaration): string {
-            let result = getTextOfIdentifierOrLiteral(declaration.name);
-            if (result !== undefined) {
-                return result;
-            }
-
-            if (declaration.name.kind === SyntaxKind.ComputedPropertyName) {
-                let expr = (<ComputedPropertyName>declaration.name).expression;
-                if (expr.kind === SyntaxKind.PropertyAccessExpression) {
-                    return (<PropertyAccessExpression>expr).name.text;
-                }
-
-                return getTextOfIdentifierOrLiteral(expr);
-            }
-
-            return undefined;
-        }
-
         function getTextOfIdentifierOrLiteral(node: Node) {
-            if (node.kind === SyntaxKind.Identifier ||
-                node.kind === SyntaxKind.StringLiteral ||
-                node.kind === SyntaxKind.NumericLiteral) {
+            if (node) {
+                if (node.kind === SyntaxKind.Identifier ||
+                    node.kind === SyntaxKind.StringLiteral ||
+                    node.kind === SyntaxKind.NumericLiteral) {
 
-                return (<Identifier | LiteralExpression>node).text;
+                    return (<Identifier | LiteralExpression>node).text;
+                }
             }
 
             return undefined;
@@ -97,16 +100,16 @@ module ts.NavigateTo {
 
         function tryAddSingleDeclarationName(declaration: Declaration, containers: string[]) {
             if (declaration && declaration.name) {
-                let text = getTextOfIdentifierOrLiteral(declaration.name);
+                const text = getTextOfIdentifierOrLiteral(declaration.name);
                 if (text !== undefined) {
                     containers.unshift(text);
                 }
                 else if (declaration.name.kind === SyntaxKind.ComputedPropertyName) {
-                    return tryAddComputedPropertyName((<ComputedPropertyName>declaration.name).expression, containers, /*includeLastPortion:*/ true);
+                    return tryAddComputedPropertyName((<ComputedPropertyName>declaration.name).expression, containers, /*includeLastPortion*/ true);
                 }
                 else {
                     // Don't know how to add this.
-                    return false
+                    return false;
                 }
             }
 
@@ -117,7 +120,7 @@ module ts.NavigateTo {
         //
         //      [X.Y.Z]() { }
         function tryAddComputedPropertyName(expression: Expression, containers: string[], includeLastPortion: boolean): boolean {
-            let text = getTextOfIdentifierOrLiteral(expression);
+            const text = getTextOfIdentifierOrLiteral(expression);
             if (text !== undefined) {
                 if (includeLastPortion) {
                     containers.unshift(text);
@@ -126,24 +129,24 @@ module ts.NavigateTo {
             }
 
             if (expression.kind === SyntaxKind.PropertyAccessExpression) {
-                let propertyAccess = <PropertyAccessExpression>expression;
+                const propertyAccess = <PropertyAccessExpression>expression;
                 if (includeLastPortion) {
                     containers.unshift(propertyAccess.name.text);
                 }
 
-                return tryAddComputedPropertyName(propertyAccess.expression, containers, /*includeLastPortion:*/ true);
+                return tryAddComputedPropertyName(propertyAccess.expression, containers, /*includeLastPortion*/ true);
             }
 
             return false;
         }
 
         function getContainers(declaration: Declaration) {
-            let containers: string[] = [];
+            const containers: string[] = [];
 
             // First, if we started with a computed property name, then add all but the last
             // portion into the container array.
             if (declaration.name.kind === SyntaxKind.ComputedPropertyName) {
-                if (!tryAddComputedPropertyName((<ComputedPropertyName>declaration.name).expression, containers, /*includeLastPortion:*/ false)) {
+                if (!tryAddComputedPropertyName((<ComputedPropertyName>declaration.name).expression, containers, /*includeLastPortion*/ false)) {
                     return undefined;
                 }
             }
@@ -166,8 +169,8 @@ module ts.NavigateTo {
             Debug.assert(matches.length > 0);
             let bestMatchKind = PatternMatchKind.camelCase;
 
-            for (let match of matches) {
-                let kind = match.kind;
+            for (const match of matches) {
+                const kind = match.kind;
                 if (kind < bestMatchKind) {
                     bestMatchKind = kind;
                 }
@@ -176,21 +179,19 @@ module ts.NavigateTo {
             return bestMatchKind;
         }
 
-        // This means "compare in a case insensitive manner."
-        let baseSensitivity: Intl.CollatorOptions = { sensitivity: "base" };
         function compareNavigateToItems(i1: RawNavigateToItem, i2: RawNavigateToItem) {
             // TODO(cyrusn): get the gamut of comparisons that VS already uses here.
             // Right now we just sort by kind first, and then by name of the item.
             // We first sort case insensitively.  So "Aaa" will come before "bar".
             // Then we sort case sensitively, so "aaa" will come before "Aaa".
             return i1.matchKind - i2.matchKind ||
-                i1.name.localeCompare(i2.name, undefined, baseSensitivity) || 
-                i1.name.localeCompare(i2.name);
+                ts.compareStringsCaseInsensitive(i1.name, i2.name) ||
+                ts.compareStrings(i1.name, i2.name);
         }
 
         function createNavigateToItem(rawItem: RawNavigateToItem): NavigateToItem {
-            let declaration = rawItem.declaration;
-            let container = <Declaration>getContainerNode(declaration);
+            const declaration = rawItem.declaration;
+            const container = <Declaration>getContainerNode(declaration);
             return {
                 name: rawItem.name,
                 kind: getNodeKind(declaration),

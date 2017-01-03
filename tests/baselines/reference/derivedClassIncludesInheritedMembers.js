@@ -41,46 +41,37 @@ var r8 = d2[1];
 
 
 //// [derivedClassIncludesInheritedMembers.js]
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Base = (function () {
     function Base(x) {
     }
-    Base.prototype.b = function () {
-    };
+    Base.prototype.b = function () { };
     Object.defineProperty(Base.prototype, "c", {
-        get: function () {
-            return '';
-        },
-        set: function (v) {
-        },
+        get: function () { return ''; },
+        set: function (v) { },
         enumerable: true,
         configurable: true
     });
-    Base.s = function () {
-    };
+    Base.s = function () { };
     Object.defineProperty(Base, "t", {
-        get: function () {
-            return '';
-        },
-        set: function (v) {
-        },
+        get: function () { return ''; },
+        set: function (v) { },
         enumerable: true,
         configurable: true
     });
     return Base;
-})();
+}());
 var Derived = (function (_super) {
     __extends(Derived, _super);
     function Derived() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     return Derived;
-})(Base);
+}(Base));
 var d = new Derived(1);
 var r1 = d.a;
 var r2 = d.b();
@@ -94,14 +85,14 @@ var Base2 = (function () {
     function Base2() {
     }
     return Base2;
-})();
+}());
 var Derived2 = (function (_super) {
     __extends(Derived2, _super);
     function Derived2() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     return Derived2;
-})(Base2);
+}(Base2));
 var d2;
 var r7 = d2[''];
 var r8 = d2[1];

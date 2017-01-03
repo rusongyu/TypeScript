@@ -6,9 +6,8 @@ export = f;
 
 
 //// [es5ExportEquals.js]
-function f() {
-}
-exports.f = f;
+"use strict";
+function f() { }
 module.exports = f;
 
 

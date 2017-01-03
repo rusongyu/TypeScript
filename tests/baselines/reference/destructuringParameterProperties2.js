@@ -34,7 +34,6 @@ var C1 = (function () {
     function C1(k, _a) {
         var a = _a[0], b = _a[1], c = _a[2];
         this.k = k;
-        this.[a, b, c] = [a, b, c];
         if ((b === undefined && c === undefined) || (this.b === undefined && this.c === undefined)) {
             this.a = a || k;
         }
@@ -49,34 +48,10 @@ var C1 = (function () {
         return this.c;
     };
     return C1;
-})();
-var x = new C1(undefined, [
-    0,
-    undefined,
-    ""
-]);
-var _a = [
-    x.getA(),
-    x.getB(),
-    x.getC()
-], x_a = _a[0], x_b = _a[1], x_c = _a[2];
-var y = new C1(10, [
-    0,
-    "",
-    true
-]);
-var _b = [
-    y.getA(),
-    y.getB(),
-    y.getC()
-], y_a = _b[0], y_b = _b[1], y_c = _b[2];
-var z = new C1(10, [
-    undefined,
-    "",
-    null
-]);
-var _c = [
-    z.getA(),
-    z.getB(),
-    z.getC()
-], z_a = _c[0], z_b = _c[1], z_c = _c[2];
+}());
+var x = new C1(undefined, [0, undefined, ""]);
+var _a = [x.getA(), x.getB(), x.getC()], x_a = _a[0], x_b = _a[1], x_c = _a[2];
+var y = new C1(10, [0, "", true]);
+var _b = [y.getA(), y.getB(), y.getC()], y_a = _b[0], y_b = _b[1], y_c = _b[2];
+var z = new C1(10, [undefined, "", null]);
+var _c = [z.getA(), z.getB(), z.getC()], z_a = _c[0], z_b = _c[1], z_c = _c[2];

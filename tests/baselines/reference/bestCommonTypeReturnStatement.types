@@ -1,4 +1,5 @@
 === tests/cases/compiler/bestCommonTypeReturnStatement.ts ===
+
 interface IPromise<T> {
 >IPromise : IPromise<T>
 >T : T
@@ -14,9 +15,10 @@ interface IPromise<T> {
 }
 
 function f() {
->f : () => IPromise<void>
+>f : () => IPromise<any>
 
     if (true) return b();
+>true : true
 >b() : IPromise<void>
 >b : () => IPromise<void>
 
@@ -29,8 +31,10 @@ function f() {
 function b(): IPromise<void> { return null; }
 >b : () => IPromise<void>
 >IPromise : IPromise<T>
+>null : null
 
 function d(): IPromise<any> { return null; }
 >d : () => IPromise<any>
 >IPromise : IPromise<T>
+>null : null
 

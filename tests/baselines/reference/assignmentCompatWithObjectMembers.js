@@ -94,24 +94,20 @@ var SimpleTypes;
         function S() {
         }
         return S;
-    })();
+    }());
     var T = (function () {
         function T() {
         }
         return T;
-    })();
+    }());
     var s;
     var t;
     var s2;
     var t2;
     var a;
     var b;
-    var a2 = {
-        foo: ''
-    };
-    var b2 = {
-        foo: ''
-    };
+    var a2 = { foo: '' };
+    var b2 = { foo: '' };
     s = t;
     t = s;
     s = s2;
@@ -138,24 +134,20 @@ var ObjectTypes;
         function S() {
         }
         return S;
-    })();
+    }());
     var T = (function () {
         function T() {
         }
         return T;
-    })();
+    }());
     var s;
     var t;
     var s2;
     var t2;
     var a;
     var b;
-    var a2 = {
-        foo: a2
-    };
-    var b2 = {
-        foo: b2
-    };
+    var a2 = { foo: a2 };
+    var b2 = { foo: b2 };
     s = t;
     t = s;
     s = s2;

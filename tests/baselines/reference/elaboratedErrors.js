@@ -27,14 +27,13 @@ y = x;
 
 
 //// [elaboratedErrors.js]
-function fn(s) {
-}
+function fn(s) { }
 // This should issue a large error, not a small one
 var WorkerFS = (function () {
     function WorkerFS() {
     }
     return WorkerFS;
-})();
+}());
 var x;
 var y;
 // Only one of these errors should be large

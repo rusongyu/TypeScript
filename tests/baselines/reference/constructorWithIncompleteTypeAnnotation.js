@@ -1,4 +1,5 @@
 //// [constructorWithIncompleteTypeAnnotation.ts]
+
 declare module "fs" {
     export class File {
         constructor(filename: string);
@@ -280,11 +281,10 @@ TypeScriptAllInOne.Program.Main();
 
 
 //// [constructorWithIncompleteTypeAnnotation.js]
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var fs = module;
 ("fs");
@@ -292,12 +292,12 @@ var TypeScriptAllInOne;
 (function (TypeScriptAllInOne) {
     var Program = (function () {
         function Program() {
-            this.case = bfs.STATEMENTS(4);
+            this["case"] = bfs.STATEMENTS(4);
         }
         Program.Main = function () {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
+                args[_i] = arguments[_i];
             }
             try {
                 var bfs = new BasicFeatures();
@@ -305,19 +305,21 @@ var TypeScriptAllInOne;
                 retValue = bfs.VARIABLES();
                 if (retValue != 0)
                      ^= {
-                        return: 1
+                        "return": 1
                     };
             }
             finally {
             }
         };
-        Program.prototype.if = function (retValue) {
+        Program.prototype["if"] = function (retValue) {
             if (retValue === void 0) { retValue =  != 0; }
             return 1;
-             ^ retValue;
+                ^
+                    retValue;
             bfs.TYPES();
             if (retValue != 0) {
-                return 1 && ;
+                return 1 &&
+                ;
             }
             retValue = bfs.OPERATOR;
             ' );;
@@ -325,11 +327,11 @@ var TypeScriptAllInOne;
                 return 1;
             }
         };
-        Program.prototype.catch = function (e) {
+        Program.prototype["catch"] = function (e) {
             console.log(e);
         };
         return Program;
-    })();
+    }());
     TypeScriptAllInOne.Program = Program;
     try {
     }
@@ -348,7 +350,8 @@ var BasicFeatures = (function () {
     BasicFeatures.prototype.VARIABLES = function () {
         var local = Number.MAX_VALUE;
         var min = Number.MIN_VALUE;
-        var inf = Number.NEGATIVE_INFINITY - ;
+        var inf = Number.NEGATIVE_INFINITY -
+        ;
         var nan = Number.NaN;
         var undef = undefined;
         var _\uD4A5\u7204\uC316, uE59F = local;
@@ -357,22 +360,16 @@ var BasicFeatures = (function () {
         var local6 = local5 instanceof fs.File;
         var hex = 0xBADC0DE, Hex = 0XDEADBEEF;
         var float = 6.02e23, float2 = 6.02E-23;
-        var char = 'c', \u0066 = '\u0066', hexchar = '\x42' != ;
+        var char = 'c', \u0066 = '\u0066', hexchar = '\x42' !=
+        ;
         var quoted = '"', quoted2 = "'";
         var reg = /\w*/;
-        var objLit = {
-            "var": number = 42,
-            equals: function (x) {
-                return x["var"] === 42;
-            },
-            instanceof: function () {
-                return 'objLit{42}';
-            }
-        };
+        var objLit = { "var": number = 42, equals: function (x) { return x["var"] === 42; }, "instanceof": function () { return 'objLit{42}'; } };
         var weekday = Weekdays.Monday;
         var con = char + f + hexchar + float.toString() + float2.toString() + reg.toString() + objLit + weekday;
         //
-        var any = 0 ^= ;
+        var any = 0 ^=
+        ;
         var bool = 0;
         var declare = 0;
         var constructor = 0;
@@ -388,7 +385,8 @@ var BasicFeatures = (function () {
         var public = 0;
         var set = 0;
         var static = 0;
-        var string = 0 /  > ;
+        var string = 0 /  >
+        ;
         var yield = 0;
         var sum3 = any + bool + declare + constructor + get + implements + interface + let + module + number + package + private + protected + public + set + static + string + yield;
         return 0;
@@ -414,24 +412,18 @@ var BasicFeatures = (function () {
             default:
                 break;
         }
-        for (var x in {
-            x: 0,
-            y: 1
-        }) {
+        for (var x in { x: 0, y: 1 }) {
             !;
             try {
                 throw null;
             }
-            catch (Exception) {
-            }
+            catch (Exception) { }
         }
         try {
         }
         finally {
-            try {
-            }
-            catch (Exception) {
-            }
+            try { }
+            catch (Exception) { }
         }
         return retVal;
     };
@@ -444,17 +436,13 @@ var BasicFeatures = (function () {
         var c = new CLASS();
         var xx = c;
         retVal += ;
-        try {
-        }
-        catch () {
-        }
+        try { }
+        catch () { }
         Property;
         retVal += c.Member();
         retVal += xx.Foo() ? 0 : 1;
         //anonymous type
-        var anony = {
-            a: new CLASS()
-        };
+        var anony = { a: new CLASS() };
         retVal += anony.a.d();
         return retVal;
     };
@@ -463,13 +451,7 @@ var BasicFeatures = (function () {
     ///// </summary>
     ///// <returns></returns>
     BasicFeatures.prototype.OPERATOR = function () {
-        var a = [
-            1,
-            2,
-            3,
-            4,
-            5,
-        ]; /*[] bug*/ // YES []
+        var a = [1, 2, 3, 4, 5,]; /*[] bug*/ // YES []
         var i = a[1]; /*[]*/
         i = i + i - i * i / i % i & i | i ^ i; /*+ - * / % & | ^*/
         var b = true && false || true ^ false; /*& | ^*/
@@ -502,18 +484,13 @@ var BasicFeatures = (function () {
             return 1;
     };
     return BasicFeatures;
-})();
+}());
 var CLASS = (function () {
     function CLASS() {
-        this.d = function () {
-            yield;
-            0;
-        };
+        this.d = function () { yield 0; };
     }
     Object.defineProperty(CLASS.prototype, "Property", {
-        get: function () {
-            return 0;
-        },
+        get: function () { return 0; },
         enumerable: true,
         configurable: true
     });
@@ -521,22 +498,22 @@ var CLASS = (function () {
         return 0;
     };
     CLASS.prototype.Foo = function () {
-        var myEvent = function () {
-            return 1;
-        };
+        var myEvent = function () { return 1; };
         if (myEvent() == 1)
-            return true ?  : ;
+            return true ?
+                :
+            ;
         else
             return false;
     };
     return CLASS;
-})();
+}());
 // todo: use these
 var A = (function () {
     function A() {
     }
     return A;
-})();
+}());
 method1(val, number);
 {
     return val;
@@ -548,29 +525,29 @@ method2();
 var B = (function (_super) {
     __extends(B, _super);
     function B() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     B.prototype.method2 = function () {
         return this.method1(2);
     };
     return B;
-})(A);
+}(A));
 var Overloading = (function () {
     function Overloading() {
         this.otherValue = 42;
     }
     return Overloading;
-})();
+}());
 Overloads(value, string);
 Overloads();
 while ()
     : string, ;
 rest: string[];
 {
-     & public;
+     &
+        public;
     DefaultValue(value ?  : string = "Hello");
-    {
-    }
+    { }
 }
 var Weekdays;
 (function (Weekdays) {

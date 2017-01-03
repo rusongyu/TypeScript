@@ -1,4 +1,5 @@
 //// [commaOperatorWithSecondOperandObjectType.ts]
+
 var ANY: any;
 var BOOLEAN: boolean;
 var NUMBER: number;
@@ -49,7 +50,7 @@ var CLASS = (function () {
     function CLASS() {
     }
     return CLASS;
-})();
+}());
 //The second operand type is Object
 ANY, OBJECT;
 BOOLEAN, OBJECT;
@@ -72,9 +73,6 @@ STRING.toLowerCase(), new CLASS();
 var resultIsObject6 = (null, OBJECT);
 var resultIsObject7 = (ANY = null, OBJECT);
 var resultIsObject8 = (true, {});
-var resultIsObject9 = (!BOOLEAN, {
-    a: 1,
-    b: "s"
-});
+var resultIsObject9 = (!BOOLEAN, { a: 1, b: "s" });
 var resultIsObject10 = ("string", new Date());
 var resultIsObject11 = (STRING.toLowerCase(), new CLASS());

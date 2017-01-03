@@ -52,40 +52,33 @@ var z3: { id: number }[] =
 
 
 //// [arrayLiteralTypeInference.js]
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Action = (function () {
     function Action() {
     }
     return Action;
-})();
+}());
 var ActionA = (function (_super) {
     __extends(ActionA, _super);
     function ActionA() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     return ActionA;
-})(Action);
+}(Action));
 var ActionB = (function (_super) {
     __extends(ActionB, _super);
     function ActionB() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     return ActionB;
-})(Action);
+}(Action));
 var x1 = [
-    {
-        id: 2,
-        trueness: false
-    },
-    {
-        id: 3,
-        name: "three"
-    }
+    { id: 2, trueness: false },
+    { id: 3, name: "three" }
 ];
 var x2 = [
     new ActionA(),
@@ -97,14 +90,8 @@ var x3 = [
     new ActionB()
 ];
 var z1 = [
-    {
-        id: 2,
-        trueness: false
-    },
-    {
-        id: 3,
-        name: "three"
-    }
+    { id: 2, trueness: false },
+    { id: 3, name: "three" }
 ];
 var z2 = [
     new ActionA(),

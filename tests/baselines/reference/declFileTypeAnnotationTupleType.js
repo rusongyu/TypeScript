@@ -23,40 +23,31 @@ var c = (function () {
     function c() {
     }
     return c;
-})();
+}());
 var m;
 (function (m) {
     var c = (function () {
         function c() {
         }
         return c;
-    })();
+    }());
     m.c = c;
     var g = (function () {
         function g() {
         }
         return g;
-    })();
+    }());
     m.g = g;
 })(m || (m = {}));
 var g = (function () {
     function g() {
     }
     return g;
-})();
+}());
 // Just the name
-var k = [
-    new c(),
-    new m.c()
-];
+var k = [new c(), new m.c()];
 var l = k;
-var x = [
-    new g(),
-    new m.g(),
-    function () {
-        return new c();
-    }
-];
+var x = [new g(), new m.g(), function () { return new c(); }];
 var y = x;
 
 

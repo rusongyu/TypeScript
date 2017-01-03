@@ -13,7 +13,7 @@ class a {
     public get d() {
         return 30;
     }
-    public set d() {
+    public set d(a: number) {
     }
 
     public static get p2() {
@@ -94,32 +94,27 @@ class e {
 }
 
 //// [classdecl.js]
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var a = (function () {
     function a(ns) {
     }
-    a.prototype.pgF = function () {
-    };
+    a.prototype.pgF = function () { };
     Object.defineProperty(a.prototype, "d", {
         get: function () {
             return 30;
         },
-        set: function () {
+        set: function (a) {
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(a, "p2", {
         get: function () {
-            return {
-                x: 30,
-                y: 40
-            };
+            return { x: 30, y: 40 };
         },
         enumerable: true,
         configurable: true
@@ -137,27 +132,27 @@ var a = (function () {
         return ns.toString();
     };
     return a;
-})();
+}());
 var b = (function (_super) {
     __extends(b, _super);
     function b() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     return b;
-})(a);
+}(a));
 var m1;
 (function (m1) {
     var b = (function () {
         function b() {
         }
         return b;
-    })();
+    }());
     m1.b = b;
     var d = (function () {
         function d() {
         }
         return d;
-    })();
+    }());
 })(m1 || (m1 = {}));
 var m2;
 (function (m2) {
@@ -166,31 +161,31 @@ var m2;
         var c = (function (_super) {
             __extends(c, _super);
             function c() {
-                _super.apply(this, arguments);
+                return _super.apply(this, arguments) || this;
             }
             return c;
-        })(b);
+        }(b));
         m3.c = c;
         var ib2 = (function () {
             function ib2() {
             }
             return ib2;
-        })();
+        }());
         m3.ib2 = ib2;
     })(m3 = m2.m3 || (m2.m3 = {}));
 })(m2 || (m2 = {}));
 var c = (function (_super) {
     __extends(c, _super);
     function c() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     return c;
-})(m1.b);
+}(m1.b));
 var ib2 = (function () {
     function ib2() {
     }
     return ib2;
-})();
+}());
 var d = (function () {
     function d() {
     }
@@ -198,7 +193,7 @@ var d = (function () {
         return ns.toString();
     };
     return d;
-})();
+}());
 var e = (function () {
     function e() {
     }
@@ -206,7 +201,7 @@ var e = (function () {
         return ns.toString();
     };
     return e;
-})();
+}());
 
 
 //// [classdecl.d.ts]
@@ -216,12 +211,12 @@ declare class a {
     pgF(): void;
     pv: any;
     d: number;
-    static p2: {
+    static readonly p2: {
         x: number;
         y: number;
     };
     private static d2();
-    private static p3;
+    private static readonly p3;
     private pv3;
     private foo(n);
     private foo(s);

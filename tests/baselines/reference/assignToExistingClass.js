@@ -22,17 +22,15 @@ var Test;
         function Mocked() {
         }
         return Mocked;
-    })();
+    }());
     var Tester = (function () {
         function Tester() {
         }
         Tester.prototype.willThrowError = function () {
             Mocked = Mocked || function () {
-                return {
-                    myProp: "test"
-                };
+                return { myProp: "test" };
             };
         };
         return Tester;
-    })();
+    }());
 })(Test || (Test = {}));

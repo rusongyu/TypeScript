@@ -13,9 +13,7 @@ __test2__.__val__x1 = __test1__.__val__obj4
 var __test1__;
 (function (__test1__) {
     ;
-    var obj4 = {
-        one: 1
-    };
+    var obj4 = { one: 1 };
     ;
     __test1__.__val__obj4 = obj4;
 })(__test1__ || (__test1__ = {}));
@@ -26,7 +24,7 @@ var __test2__;
             this.one = one;
         }
         return classWithPublic;
-    })();
+    }());
     __test2__.classWithPublic = classWithPublic;
     var x1 = new classWithPublic(1);
     ;

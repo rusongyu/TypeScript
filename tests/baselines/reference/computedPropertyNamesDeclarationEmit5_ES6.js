@@ -9,15 +9,13 @@ var v = {
 //// [computedPropertyNamesDeclarationEmit5_ES6.js]
 var v = {
     ["" + ""]: 0,
-    ["" + ""]() {
-    },
-    get ["" + ""]() {
-        return 0;
-    },
-    set ["" + ""](x) {
-    }
+    ["" + ""]() { },
+    get ["" + ""]() { return 0; },
+    set ["" + ""](x) { }
 };
 
 
 //// [computedPropertyNamesDeclarationEmit5_ES6.d.ts]
-declare var v: {};
+declare var v: {
+    [x: string]: any;
+};

@@ -1,6 +1,6 @@
 //// [ES5SymbolProperty2.ts]
 module M {
-    var Symbol;
+    var Symbol: any;
 
     export class C {
         [Symbol.iterator]() { }
@@ -17,10 +17,9 @@ var M;
     var C = (function () {
         function C() {
         }
-        C.prototype[Symbol.iterator] = function () {
-        };
+        C.prototype[Symbol.iterator] = function () { };
         return C;
-    })();
+    }());
     M.C = C;
     (new C)[Symbol.iterator];
 })(M || (M = {}));

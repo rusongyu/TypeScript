@@ -29,11 +29,10 @@ class c extends Foo {
 }
 
 //// [collisionSuperAndLocalFunctionInMethod.js]
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 function _super() {
 }
@@ -47,11 +46,11 @@ var Foo = (function () {
     Foo.prototype._super = function () {
     };
     return Foo;
-})();
+}());
 var b = (function (_super) {
     __extends(b, _super);
     function b() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     b.prototype.foo = function () {
         function _super() {
@@ -60,11 +59,11 @@ var b = (function (_super) {
     b.prototype._super = function () {
     };
     return b;
-})(Foo);
+}(Foo));
 var c = (function (_super) {
     __extends(c, _super);
     function c() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     c.prototype.foo = function () {
         var x = function () {
@@ -75,4 +74,4 @@ var c = (function (_super) {
     c.prototype._super = function () {
     };
     return c;
-})(Foo);
+}(Foo));

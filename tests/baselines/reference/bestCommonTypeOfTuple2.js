@@ -23,48 +23,48 @@ var e51 = t5[2]; // {}
 
 
 //// [bestCommonTypeOfTuple2.js]
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var C = (function () {
     function C() {
     }
     return C;
-})();
+}());
 var D = (function () {
     function D() {
     }
     return D;
-})();
+}());
 var E = (function () {
     function E() {
     }
     return E;
-})();
+}());
 var F = (function (_super) {
     __extends(F, _super);
     function F() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     return F;
-})(C);
+}(C));
 var C1 = (function () {
     function C1() {
         this.i = "foo";
     }
     return C1;
-})();
+}());
 var D1 = (function (_super) {
     __extends(D1, _super);
     function D1() {
-        _super.apply(this, arguments);
-        this.i = "bar";
+        var _this = _super.apply(this, arguments) || this;
+        _this.i = "bar";
+        return _this;
     }
     return D1;
-})(C1);
+}(C1));
 var t1;
 var t2;
 var t3;

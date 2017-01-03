@@ -60,19 +60,16 @@ var r = c.foo(); // e.foo would return string
 
 
 //// [derivedClassWithAny.js]
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var C = (function () {
     function C() {
     }
     Object.defineProperty(C.prototype, "X", {
-        get: function () {
-            return 1;
-        },
+        get: function () { return 1; },
         enumerable: true,
         configurable: true
     });
@@ -90,11 +87,11 @@ var C = (function () {
         return 1;
     };
     return C;
-})();
+}());
 var D = (function (_super) {
     __extends(D, _super);
     function D() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     Object.defineProperty(D.prototype, "X", {
         get: function () {
@@ -117,17 +114,15 @@ var D = (function (_super) {
         return null;
     };
     return D;
-})(C);
+}(C));
 // if D is a valid class definition than E is now not safe tranisitively through C
 var E = (function (_super) {
     __extends(E, _super);
     function E() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     Object.defineProperty(E.prototype, "X", {
-        get: function () {
-            return '';
-        },
+        get: function () { return ''; },
         enumerable: true,
         configurable: true
     });
@@ -145,7 +140,7 @@ var E = (function (_super) {
         return '';
     };
     return E;
-})(D);
+}(D));
 var c;
 var d;
 var e;

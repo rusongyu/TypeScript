@@ -50,9 +50,6 @@ class D extends C {
     }
 }
 
-// Only supported in when target is ES6
-var c = new C(1, 2, ...a);
-
 
 //// [callWithSpreadES6.js]
 function foo(x, y, ...z) {
@@ -73,11 +70,7 @@ obj.foo(1, 2, ...a, "abc");
 xa[1].foo(1, 2, "abc");
 xa[1].foo(1, 2, ...a);
 xa[1].foo(1, 2, ...a, "abc");
-xa[1].foo(...[
-    1,
-    2,
-    "abc"
-]);
+xa[1].foo(...[1, 2, "abc"]);
 class C {
     constructor(x, y, ...z) {
         this.foo(x, y);
@@ -96,5 +89,3 @@ class D extends C {
         super.foo(1, 2, ...a);
     }
 }
-// Only supported in when target is ES6
-var c = new C(1, 2, ...a);

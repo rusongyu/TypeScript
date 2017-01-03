@@ -9,18 +9,14 @@ var v = {
 //// [computedPropertyNamesDeclarationEmit5_ES5.js]
 var v = (_a = {},
     _a["" + ""] = 0,
-    _a["" + ""] = function () {
-    },
-    _a["" + ""] = Object.defineProperty({
-        get: function () {
-            return 0;
-        },
+    _a["" + ""] = function () { },
+    Object.defineProperty(_a, "" + "", {
+        get: function () { return 0; },
         enumerable: true,
         configurable: true
     }),
-    _a["" + ""] = Object.defineProperty({
-        set: function (x) {
-        },
+    Object.defineProperty(_a, "" + "", {
+        set: function (x) { },
         enumerable: true,
         configurable: true
     }),
@@ -29,4 +25,6 @@ var _a;
 
 
 //// [computedPropertyNamesDeclarationEmit5_ES5.d.ts]
-declare var v: {};
+declare var v: {
+    [x: string]: any;
+};

@@ -21,11 +21,10 @@ module X.Y.base.Z {
 
 
 //// [declFileWithClassNameConflictingWithClassReferredByExtendsClause.js]
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var X;
 (function (X) {
@@ -36,15 +35,14 @@ var X;
             var W = (function (_super) {
                 __extends(W, _super);
                 function W() {
-                    _super.apply(this, arguments);
+                    return _super.apply(this, arguments) || this;
                 }
                 return W;
-            })(A.B.Base.W);
+            }(A.B.Base.W));
             base.W = W;
         })(base = Y.base || (Y.base = {}));
     })(Y = X.Y || (X.Y = {}));
 })(X || (X = {}));
-var X;
 (function (X) {
     var Y;
     (function (Y) {
@@ -55,10 +53,10 @@ var X;
                 var W = (function (_super) {
                     __extends(W, _super);
                     function W() {
-                        _super.apply(this, arguments);
+                        return _super.apply(this, arguments) || this;
                     }
                     return W;
-                })(X.Y.base.W);
+                }(X.Y.base.W));
                 Z.W = W;
             })(Z = base.Z || (base.Z = {}));
         })(base = Y.base || (Y.base = {}));

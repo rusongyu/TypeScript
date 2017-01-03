@@ -69,72 +69,50 @@ module okay {
 //// [arrowFunctionsMissingTokens.js]
 var missingArrowsWithCurly;
 (function (missingArrowsWithCurly) {
-    var a = function () {
-    };
-    var b = function () {
-    };
-    var c = function (x) {
-    };
-    var d = function (x, y) {
-    };
-    var e = function (x, y) {
-    };
+    var a = function () { };
+    var b = function () { };
+    var c = function (x) { };
+    var d = function (x, y) { };
+    var e = function (x, y) { };
 })(missingArrowsWithCurly || (missingArrowsWithCurly = {}));
 var missingCurliesWithArrow;
 (function (missingCurliesWithArrow) {
     var withStatement;
     (function (withStatement) {
-        var a = function () {
-            var k = 10;
-        };
-        var b = function () {
-            var k = 10;
-        };
-        var c = function (x) {
-            var k = 10;
-        };
-        var d = function (x, y) {
-            var k = 10;
-        };
-        var e = function (x, y) {
-            var k = 10;
-        };
-        var f = function () {
-            var k = 10;
-        };
+        var a = function () { var k = 10; };
+        var b = function () { var k = 10; };
+        var c = function (x) { var k = 10; };
+        var d = function (x, y) { var k = 10; };
+        var e = function (x, y) { var k = 10; };
+        var f = function () { var k = 10; };
     })(withStatement || (withStatement = {}));
     var withoutStatement;
     (function (withoutStatement) {
-        var a = ;
+        var a = function () { return ; };
     })(withoutStatement || (withoutStatement = {}));
     ;
-    var b = ;
+    var b = function () { return ; };
 })(missingCurliesWithArrow || (missingCurliesWithArrow = {}));
-var c = ;
+var c = function (x) { return ; };
 ;
-var d = ;
+var d = function (x, y) { return ; };
 ;
-var e = ;
+var e = function (x, y) { return ; };
 ;
-var f = ;
+var f = function () { return ; };
 var ce_nEst_pas_une_arrow_function;
 (function (ce_nEst_pas_une_arrow_function) {
     var a = ();
-    var b = ;
+    var b = function () { return ; };
     var c = (x);
-    var d = ;
-    var e = ;
+    var d = function (x, y) { return ; };
+    var e = function (x, y) { return ; };
 })(ce_nEst_pas_une_arrow_function || (ce_nEst_pas_une_arrow_function = {}));
 var okay;
 (function (okay) {
-    var a = function () {
-    };
-    var b = function () {
-    };
-    var c = function (x) {
-    };
-    var d = function (x, y) {
-    };
-    var e = function (x, y) {
-    };
+    var a = function () { };
+    var b = function () { };
+    var c = function (x) { };
+    var d = function (x, y) { };
+    var e = function (x, y) { };
 })(okay || (okay = {}));
