@@ -44,7 +44,7 @@ var Accessor = (function () {
     function Accessor() {
     }
     return Accessor;
-})();
+}());
 function attr(nameOrMap, value) {
     if (nameOrMap && typeof nameOrMap === "object") {
         // handle map case
@@ -65,7 +65,5 @@ function attr2(nameOrMap, value) {
         return "s";
     }
 }
-function foo() {
-    return "a";
-}
+function foo() { return "a"; }
 ;

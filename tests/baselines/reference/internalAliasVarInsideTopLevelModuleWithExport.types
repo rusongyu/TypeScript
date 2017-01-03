@@ -4,6 +4,7 @@ export module a {
 
     export var x = 10;
 >x : number
+>10 : 10
 }
 
 export import b = a.x;

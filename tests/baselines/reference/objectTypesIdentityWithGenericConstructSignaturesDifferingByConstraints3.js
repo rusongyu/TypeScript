@@ -103,63 +103,44 @@ var One = (function () {
     function One() {
     }
     return One;
-})();
+}());
 var Two = (function () {
     function Two() {
     }
     return Two;
-})();
+}());
 var B = (function () {
     function B(x, y) {
         return null;
     }
     return B;
-})();
+}());
 var C = (function () {
     function C(x, y) {
         return null;
     }
     return C;
-})();
+}());
 var D = (function () {
     function D(x, y) {
         return null;
     }
     return D;
-})();
+}());
 var a;
-var b = {
-    new: function (x, y) {
-        return '';
-    }
-}; // not a construct signature, function called new
-function foo1b(x) {
-}
-function foo1c(x) {
-}
-function foo2(x) {
-}
-function foo3(x) {
-}
-function foo4(x) {
-}
-function foo5c(x) {
-}
-function foo6c(x) {
-}
-function foo8(x) {
-}
-function foo9(x) {
-}
-function foo10(x) {
-}
-function foo11(x) {
-}
-function foo12(x) {
-}
-function foo12b(x) {
-}
-function foo13(x) {
-}
-function foo14(x) {
-}
+var b = { "new": function (x, y) { return ''; } }; // not a construct signature, function called new
+function foo1b(x) { }
+function foo1c(x) { }
+function foo2(x) { }
+function foo3(x) { }
+function foo4(x) { }
+function foo5c(x) { }
+function foo6c(x) { }
+function foo8(x) { }
+function foo9(x) { }
+function foo10(x) { }
+function foo11(x) { }
+function foo12(x) { }
+function foo12b(x) { }
+function foo13(x) { }
+function foo14(x) { }

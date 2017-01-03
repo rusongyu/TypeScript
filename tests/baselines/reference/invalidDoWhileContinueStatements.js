@@ -1,4 +1,5 @@
 //// [invalidDoWhileContinueStatements.ts]
+
 // All errors
 
 // naked continue not allowed
@@ -60,8 +61,7 @@ THREE: do {
 // continue forward
 do {
     continue FIVE;
-    FIVE: do {
-    } while (true);
+    FIVE: do { } while (true);
 } while (true);
 // label on non-loop statement
 NINE: var y = 12;

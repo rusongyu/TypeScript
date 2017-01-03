@@ -40,18 +40,16 @@ var M;
             this.c1 = c1;
             this.c2 = c2;
             this.x = C.y + this.c1 + this.c2 + c3;
-            this.g = function (v) {
-                return C.f(_this.x + C.y + v + _this.c1 + _this.c2 + C.pub);
-            };
+            this.g = function (v) { return C.f(_this.x + C.y + v + _this.c1 + _this.c2 + C.pub); };
         }
         C.f = function (n) {
             return "wow: " + (n + C.y + C.pub + C.priv);
         };
-        C.priv = 2;
-        C.pub = 3;
-        C.y = C.priv;
         return C;
-    })();
+    }());
+    C.priv = 2;
+    C.pub = 3;
+    C.y = C.priv;
     M.C = C;
     var c = C.y;
     function f() {

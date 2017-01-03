@@ -36,24 +36,15 @@ function foo7(x: number | string | boolean) {
     var y: number| boolean | string;
     var z: number| boolean | string;
     // Mixing typeguard narrowing
-    // Assigning value to x deep inside another guard stops narrowing of type too
     return typeof x === "string"
-        || ((z = x) // string | number | boolean - x changed deeper in conditional expression
+        || ((z = x) // number | boolean
         || (typeof x === "number"
         // change value of x
-        ? (x = 10 && x.toString()) // number | boolean | string
+        ? ((x = 10) && x.toString()) // number | boolean | string
         // do not change value
-        : (y = x && x.toString()))); // number | boolean | string
+        : ((y = x) && x.toString()))); // number | boolean | string
 }
-function foo8(x: number | string) {
-    // Mixing typeguard 
-    // Assigning value to x in outer guard shouldn't stop narrowing in the inner expression
-    return typeof x === "string"
-        || (x = 10) // change x - number| string
-        || (typeof x === "number"
-        ? x // number
-        : x.length); // string
-}
+
 
 //// [typeGuardsInRightOperandOfOrOrOperator.js]
 // In the right operand of a || operation, 
@@ -72,36 +63,30 @@ function foo3(x) {
 }
 function foo4(x) {
     return typeof x === "string" // string | number | boolean
-     || typeof x === "number" // number | boolean
-     || x; // boolean
+        || typeof x === "number" // number | boolean
+        || x; // boolean
 }
 function foo5(x) {
     // usage of x or assignment to separate variable shouldn't cause narrowing of type to stop
     var b;
     return typeof x === "string" // string | number | boolean
-     || ((b = x) || (typeof x === "number" // number | boolean
-     || x)); // boolean
+        || ((b = x) || (typeof x === "number" // number | boolean
+            || x)); // boolean
 }
 function foo6(x) {
     // Mixing typeguard
     return typeof x === "string" // string | number | boolean
-     || (typeof x !== "number" // number | boolean
-     ? x // boolean
-     : x === 10); // number 
+        || (typeof x !== "number" // number | boolean
+            ? x // boolean
+            : x === 10); // number 
 }
 function foo7(x) {
     var y;
     var z;
     // Mixing typeguard narrowing
-    // Assigning value to x deep inside another guard stops narrowing of type too
-    return typeof x === "string" || ((z = x) // string | number | boolean - x changed deeper in conditional expression
-     || (typeof x === "number" ? (x = 10 && x.toString()) // number | boolean | string
-     : (y = x && x.toString()))); // number | boolean | string
-}
-function foo8(x) {
-    // Mixing typeguard 
-    // Assigning value to x in outer guard shouldn't stop narrowing in the inner expression
-    return typeof x === "string" || (x = 10) // change x - number| string
-     || (typeof x === "number" ? x // number
-     : x.length); // string
+    return typeof x === "string"
+        || ((z = x) // number | boolean
+            || (typeof x === "number"
+                ? ((x = 10) && x.toString()) // number | boolean | string
+                : ((y = x) && x.toString()))); // number | boolean | string
 }

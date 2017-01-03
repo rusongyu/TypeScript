@@ -39,7 +39,7 @@ var C = (function () {
     function C() {
     }
     return C;
-})();
+}());
 var e = x;
 var f = x;
 var g = 1;
@@ -59,7 +59,4 @@ var E;
 })(E || (E = {}));
 x = E;
 x = E.A;
-x = {
-    f: function () {
-    }
-};
+x = { f: function () { } };

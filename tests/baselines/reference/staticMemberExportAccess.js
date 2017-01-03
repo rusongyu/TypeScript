@@ -24,15 +24,12 @@ Sammy.bar();
 var Sammy = (function () {
     function Sammy() {
     }
-    Sammy.prototype.foo = function () {
-        return "hi";
-    };
+    Sammy.prototype.foo = function () { return "hi"; };
     Sammy.bar = function () {
         return -1;
     };
     return Sammy;
-})();
-var Sammy;
+}());
 (function (Sammy) {
     Sammy.x = 1;
 })(Sammy || (Sammy = {}));

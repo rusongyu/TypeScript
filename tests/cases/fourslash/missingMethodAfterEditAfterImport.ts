@@ -1,21 +1,19 @@
 /// <reference path='fourslash.ts' />
 
-//// module foo {
-////     export module bar { module baz { export class boo { } } }
+//// namespace foo {
+////     export namespace bar { namespace baz { export class boo { } } }
 //// }
 //// 
 //// import f = /*foo*/foo;
 //// 
 //// /*delete*/var x;
 
-// Sanity check
-goTo.marker('foo');
-verify.quickInfoIs('module foo');
+// Sanity check\
+verify.quickInfoAt("foo", "namespace foo");
 
 // Delete some code
 goTo.marker('delete');
 edit.deleteAtCaret('var x;'.length);
 
 // Pull on the RHS of an import
-goTo.marker('foo');
-verify.quickInfoIs('module foo');
+verify.quickInfoAt("foo", "namespace foo");

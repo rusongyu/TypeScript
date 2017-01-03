@@ -778,7 +778,10 @@ var Formatting;
         }
         Indenter.prototype.GetIndentationEdits = function (token, nextToken, node, sameLineIndent) {
             if (this.logger.information()) {
-                this.logger.log("GetIndentationEdits(" + "t1=[" + token.Span.startPosition() + "," + token.Span.endPosition() + "], " + "t2=[" + (nextToken == null ? "null" : (nextToken.Span.startPosition() + "," + nextToken.Span.endPosition())) + "]" + ")");
+                this.logger.log("GetIndentationEdits(" +
+                    "t1=[" + token.Span.startPosition() + "," + token.Span.endPosition() + "], " +
+                    "t2=[" + (nextToken == null ? "null" : (nextToken.Span.startPosition() + "," + nextToken.Span.endPosition())) + "]" +
+                    ")");
             }
             var result = this.GetIndentationEditsWorker(token, nextToken, node, sameLineIndent);
             if (this.logger.information()) {
@@ -887,7 +890,7 @@ var Formatting;
             return result;
         };
         Indenter.GetIndentSizeFromIndentText = function (indentText, editorOptions) {
-            return GetIndentSizeFromText(indentText, editorOptions, false);
+            return GetIndentSizeFromText(indentText, editorOptions, /*includeNonIndentChars:*/ false);
         };
         Indenter.GetIndentSizeFromText = function (text, editorOptions, includeNonIndentChars) {
             var indentSize = 0;
@@ -938,7 +941,8 @@ var Formatting;
         };
         Indenter.prototype.GetSpecialCaseIndentationForLCurly = function (node) {
             var indentationInfo = null;
-            if (node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkFncDecl || node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneThen || node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneElse) {
+            if (node.AuthorNode.Details.Kind == AuthorParseNodeKind.apnkFncDecl ||
+                node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneThen || node.AuthorNode.EdgeLabel == AuthorParseNodeEdge.apneElse) {
                 // flushed with the node (function & if)
                 indentationInfo = node.GetNodeStartLineIndentation(this);
                 return indentationInfo;
@@ -1170,7 +1174,7 @@ var Formatting;
                     return null;
                 var origIndentText = this.snapshot.GetText(new Span(indentEditInfo.OrigIndentPosition, indentEditInfo.OrigIndentLength()));
                 var newIndentText = indentEditInfo.Indentation();
-                var origIndentSize = Indenter.GetIndentSizeFromText(origIndentText, this.editorOptions, true);
+                var origIndentSize = Indenter.GetIndentSizeFromText(origIndentText, this.editorOptions, /*includeNonIndentChars*/ true);
                 var newIndentSize = Indenter.GetIndentSizeFromIndentText(newIndentText, this.editorOptions);
                 // Check the child's position whether it's before the parent position
                 // if so indent the child based on the first token on the line as opposed to the parent position
@@ -1233,7 +1237,8 @@ var Formatting;
                         // Get the parent that is really on a different line from the self node
                         var startNodeLineNumber = this.snapshot.GetLineNumberFromPosition(tree.StartNodeSelf.AuthorNode.Details.StartOffset);
                         parent = tree.StartNodeSelf.Parent;
-                        while (parent != null && startNodeLineNumber == this.snapshot.GetLineNumberFromPosition(parent.AuthorNode.Details.StartOffset)) {
+                        while (parent != null &&
+                            startNodeLineNumber == this.snapshot.GetLineNumberFromPosition(parent.AuthorNode.Details.StartOffset)) {
                             parent = parent.Parent;
                         }
                     }
@@ -1331,9 +1336,10 @@ var Formatting;
             }
         };
         Indenter.prototype.IsMultiLineString = function (token) {
-            return token.tokenID === TypeScript.TokenID.StringLiteral && this.snapshot.GetLineNumberFromPosition(token.Span.endPosition()) > this.snapshot.GetLineNumberFromPosition(token.Span.startPosition());
+            return token.tokenID === TypeScript.TokenID.StringLiteral &&
+                this.snapshot.GetLineNumberFromPosition(token.Span.endPosition()) > this.snapshot.GetLineNumberFromPosition(token.Span.startPosition());
         };
         return Indenter;
-    })();
+    }());
     Formatting.Indenter = Indenter;
 })(Formatting || (Formatting = {}));

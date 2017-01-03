@@ -51,11 +51,10 @@ results1.x() + results1.y() + results2.y();
 
 
 //// [super2.js]
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 // Case 5
 var Base5 = (function () {
@@ -68,21 +67,21 @@ var Base5 = (function () {
         return "BaseY";
     };
     return Base5;
-})();
+}());
 var Sub5 = (function (_super) {
     __extends(Sub5, _super);
     function Sub5() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     Sub5.prototype.x = function () {
         return "SubX";
     };
     return Sub5;
-})(Base5);
+}(Base5));
 var SubSub5 = (function (_super) {
     __extends(SubSub5, _super);
     function SubSub5() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     SubSub5.prototype.x = function () {
         return _super.prototype.x.call(this);
@@ -91,7 +90,7 @@ var SubSub5 = (function (_super) {
         return _super.prototype.y.call(this);
     };
     return SubSub5;
-})(Sub5);
+}(Sub5));
 // Case 6
 var Base6 = (function () {
     function Base6() {
@@ -100,27 +99,27 @@ var Base6 = (function () {
         return "BaseX";
     };
     return Base6;
-})();
+}());
 var Sub6 = (function (_super) {
     __extends(Sub6, _super);
     function Sub6() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     Sub6.prototype.y = function () {
         return "SubY";
     };
     return Sub6;
-})(Base6);
+}(Base6));
 var SubSub6 = (function (_super) {
     __extends(SubSub6, _super);
     function SubSub6() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     SubSub6.prototype.y = function () {
         return _super.prototype.y.call(this);
     };
     return SubSub6;
-})(Sub6);
+}(Sub6));
 var results1 = new SubSub5();
 var results2 = new SubSub6();
 results1.x() + results1.y() + results2.y();

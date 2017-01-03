@@ -18,17 +18,15 @@ class C {
 var A = (function () {
     function A() {
     }
-    A.prototype.foo = function () {
-    };
+    A.prototype.foo = function () { };
     return A;
-})();
+}());
 var B = (function () {
     function B() {
     }
-    B.prototype.bar = function () {
-    };
+    B.prototype.bar = function () { };
     return B;
-})();
+}());
 function foo(x) {
     var x = new B();
     x.bar(); // the property bar does not exist on a value of type A
@@ -40,4 +38,4 @@ var C = (function () {
         var n = p;
     }
     return C;
-})();
+}());

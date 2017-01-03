@@ -4,6 +4,7 @@ class C {
 
     static x = 1;
 >x : number
+>1 : 1
 }
 
 var c = new C();

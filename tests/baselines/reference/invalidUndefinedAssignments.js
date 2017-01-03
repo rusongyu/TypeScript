@@ -33,7 +33,7 @@ var C = (function () {
     function C() {
     }
     return C;
-})();
+}());
 var f;
 C = x;
 var g;
@@ -44,7 +44,6 @@ var M;
     M.x = 1;
 })(M || (M = {}));
 M = x;
-function i(a) {
-}
+function i(a) { }
 // BUG 767030
 i = x;

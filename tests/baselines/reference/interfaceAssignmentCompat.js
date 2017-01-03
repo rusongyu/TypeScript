@@ -55,12 +55,12 @@ M.test();
 //// [interfaceAssignmentCompat.js]
 var M;
 (function (M) {
+    var Color;
     (function (Color) {
         Color[Color["Green"] = 0] = "Green";
         Color[Color["Blue"] = 1] = "Blue";
         Color[Color["Brown"] = 2] = "Brown";
-    })(M.Color || (M.Color = {}));
-    var Color = M.Color;
+    })(Color = M.Color || (M.Color = {}));
     function CompareEyes(a, b) {
         return a.color - b.color;
     }
@@ -72,15 +72,9 @@ var M;
     function test() {
         var x = [];
         var result = "";
-        x[0] = {
-            color: Color.Brown
-        };
-        x[1] = {
-            color: Color.Blue
-        };
-        x[2] = {
-            color: Color.Green
-        };
+        x[0] = { color: Color.Brown };
+        x[1] = { color: Color.Blue };
+        x[2] = { color: Color.Green };
         x = x.sort(CompareYeux); // parameter mismatch
         // type of z inferred from specialized array type
         var z = x.sort(CompareEyes); // ok

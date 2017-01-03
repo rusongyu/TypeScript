@@ -1,4 +1,5 @@
 //// [interfaceExtendingClass2.ts]
+
 class Foo {
     x: string;
     y() { }
@@ -19,8 +20,7 @@ interface I2 extends Foo { // error
 var Foo = (function () {
     function Foo() {
     }
-    Foo.prototype.y = function () {
-    };
+    Foo.prototype.y = function () { };
     Object.defineProperty(Foo.prototype, "Z", {
         get: function () {
             return 1;
@@ -29,6 +29,6 @@ var Foo = (function () {
         configurable: true
     });
     return Foo;
-})();
+}());
 return 1;
 ;

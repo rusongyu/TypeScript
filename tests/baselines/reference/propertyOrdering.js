@@ -31,11 +31,9 @@ var Foo = (function () {
     Foo.prototype.foo = function () {
         return this._store.length; // shouldn't be an error
     };
-    Foo.prototype.bar = function () {
-        return this.store;
-    }; // should be an error
+    Foo.prototype.bar = function () { return this.store; }; // should be an error
     return Foo;
-})();
+}());
 var Bar = (function () {
     function Bar(store) {
         this._store = store;
@@ -44,4 +42,4 @@ var Bar = (function () {
         return this._store.length; // shouldn't be an error
     };
     return Bar;
-})();
+}());

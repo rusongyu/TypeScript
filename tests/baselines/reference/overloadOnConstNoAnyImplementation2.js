@@ -33,17 +33,9 @@ var C = (function () {
         callback(1); // error
     };
     return C;
-})();
+}());
 var c;
-c.x1(1, function (x) {
-    return 1;
-});
-c.x1(1, function (x) {
-    return 1;
-});
-c.x1(1, function (x) {
-    return 1;
-});
-c.x1(1, function (x) {
-    return 1;
-});
+c.x1(1, function (x) { return 1; });
+c.x1(1, function (x) { return 1; });
+c.x1(1, function (x) { return 1; });
+c.x1(1, function (x) { return 1; });

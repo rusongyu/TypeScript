@@ -11,11 +11,8 @@ var A = (function () {
     function A() {
     }
     return A;
-})();
+}());
 var x;
-(function (a) {
-});
+(function (a) { });
 var y;
-(function () {
-    return null;
-});
+(function () { return null; });

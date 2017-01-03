@@ -21,15 +21,12 @@ var A;
     var B = (function () {
         function B() {
         }
-        B.prototype.foo = function () {
-        };
-        B.bar = function () {
-        };
+        B.prototype.foo = function () { };
+        B.bar = function () { };
         return B;
-    })();
+    }());
     A.B = B;
 })(A || (A = {}));
-var A;
 (function (A) {
     var B;
     (function (B) {

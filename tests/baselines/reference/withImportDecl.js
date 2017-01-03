@@ -45,30 +45,25 @@ b.foo;
 
 //// [withImportDecl_0.js]
 define(["require", "exports"], function (require, exports) {
+    "use strict";
     var A = (function () {
         function A() {
         }
         return A;
-    })();
+    }());
     exports.A = A;
 });
 //// [withImportDecl_1.js]
 define(["require", "exports", "withImportDecl_0"], function (require, exports, m3) {
+    "use strict";
     ///<reference path='withImportDecl_0.ts'/>
     var simpleVar;
     var anotherVar;
     var varWithSimpleType;
     var varWithArrayType;
     var varWithInitialValue = 30;
-    var withComplicatedValue = {
-        x: 30,
-        y: 70,
-        desc: "position"
-    };
-    var arrayVar = [
-        'a',
-        'b'
-    ];
+    var withComplicatedValue = { x: 30, y: 70, desc: "position" };
+    var arrayVar = ['a', 'b'];
     function simpleFunction() {
         return {
             x: "Hello",

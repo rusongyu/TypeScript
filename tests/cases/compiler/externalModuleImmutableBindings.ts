@@ -3,7 +3,9 @@
 export var x = 1;
 
 // @Filename: f2.ts
-import * as stuff from 'f1';
+
+// all mutations below are illegal and should be fixed
+import * as stuff from './f1';
 
 var n = 'baz';
 

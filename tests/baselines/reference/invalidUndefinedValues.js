@@ -43,7 +43,7 @@ var C = (function () {
     function C() {
     }
     return C;
-})();
+}());
 var b;
 x = C;
 x = b;
@@ -54,10 +54,7 @@ var M;
     M.x = 1;
 })(M || (M = {}));
 x = M;
-x = {
-    f: function () {
-    }
-};
+x = { f: function () { } };
 function f(a) {
     x = a;
 }

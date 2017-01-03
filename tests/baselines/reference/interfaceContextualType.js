@@ -22,21 +22,18 @@ class Bug {
 
 
 //// [interfaceContextualType.js]
+"use strict";
 var Bug = (function () {
     function Bug() {
     }
     Bug.prototype.ok = function () {
         this.values = {};
-        this.values['comments'] = {
-            italic: true
-        };
+        this.values['comments'] = { italic: true };
     };
     Bug.prototype.shouldBeOK = function () {
         this.values = {
-            comments: {
-                italic: true
-            }
+            comments: { italic: true }
         };
     };
     return Bug;
-})();
+}());

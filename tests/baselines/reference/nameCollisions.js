@@ -41,10 +41,10 @@ module T {
     interface fi { } // ok
 
     class cli { }
-    interface cli { } // error
+    interface cli { }
 
     interface cli2 { }
-    class cli2 { } // error
+    class cli2 { }
 }
 
 //// [nameCollisions.js]
@@ -57,7 +57,7 @@ var T;
             function Bar() {
             }
             return Bar;
-        })();
+        }());
         x.Bar = Bar;
     })(x || (x = {}));
     var z;
@@ -73,39 +73,34 @@ var T;
         function y() {
         }
         return y;
-    })(); // error
+    }()); // error
     var w;
     var f;
-    function f() {
-    } //error
-    function f2() {
-    }
+    function f() { } //error
+    function f2() { }
     var f2; // error
     var i;
     var C = (function () {
         function C() {
         }
         return C;
-    })();
-    function C() {
-    } // error
-    function C2() {
-    }
+    }());
+    function C() { } // error
+    function C2() { }
     var C2 = (function () {
         function C2() {
         }
         return C2;
-    })(); // error
-    function fi() {
-    }
+    }()); // error
+    function fi() { }
     var cli = (function () {
         function cli() {
         }
         return cli;
-    })();
+    }());
     var cli2 = (function () {
         function cli2() {
         }
         return cli2;
-    })(); // error
+    }());
 })(T || (T = {}));

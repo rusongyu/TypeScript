@@ -20,11 +20,10 @@ module N {
 
 
 //// [extBaseClass1.js]
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var M;
 (function (M) {
@@ -33,26 +32,25 @@ var M;
             this.x = 10;
         }
         return B;
-    })();
+    }());
     M.B = B;
     var C = (function (_super) {
         __extends(C, _super);
         function C() {
-            _super.apply(this, arguments);
+            return _super.apply(this, arguments) || this;
         }
         return C;
-    })(B);
+    }(B));
     M.C = C;
 })(M || (M = {}));
-var M;
 (function (M) {
     var C2 = (function (_super) {
         __extends(C2, _super);
         function C2() {
-            _super.apply(this, arguments);
+            return _super.apply(this, arguments) || this;
         }
         return C2;
-    })(M.B);
+    }(M.B));
     M.C2 = C2;
 })(M || (M = {}));
 var N;
@@ -60,9 +58,9 @@ var N;
     var C3 = (function (_super) {
         __extends(C3, _super);
         function C3() {
-            _super.apply(this, arguments);
+            return _super.apply(this, arguments) || this;
         }
         return C3;
-    })(M.B);
+    }(M.B));
     N.C3 = C3;
 })(N || (N = {}));

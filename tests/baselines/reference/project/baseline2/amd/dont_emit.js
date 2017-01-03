@@ -1,6 +1,4 @@
 define(["require", "exports"], function (require, exports) {
-    var p = {
-        x: 10,
-        y: 20
-    };
+    "use strict";
+    var p = { x: 10, y: 20 };
 });

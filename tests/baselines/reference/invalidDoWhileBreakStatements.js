@@ -1,4 +1,5 @@
 //// [invalidDoWhileBreakStatements.ts]
+
 // All errors
 
 // naked break not allowed
@@ -60,8 +61,7 @@ THREE: do {
 // break forward
 do {
     break FIVE;
-    FIVE: do {
-    } while (true);
+    FIVE: do { } while (true);
 } while (true);
 // label on non-loop statement
 NINE: var y = 12;

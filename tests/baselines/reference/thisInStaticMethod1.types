@@ -4,6 +4,7 @@ class foo {
 
  static x = 3;
 >x : number
+>3 : 3
 
  static bar() {
 >bar : () => number

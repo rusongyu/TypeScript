@@ -24,12 +24,11 @@ var Foo = (function () {
     function Foo() {
     }
     return Foo;
-})();
+}());
 try {
     bar = someInitThatMightFail();
 }
-catch (e) {
-}
+catch (e) { }
 baz();
 {
     return this.bar; // doesn't get rewritten to Foo.bar.

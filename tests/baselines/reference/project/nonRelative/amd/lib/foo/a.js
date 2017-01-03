@@ -1,5 +1,5 @@
 define(["require", "exports"], function (require, exports) {
-    function hello() {
-    }
+    "use strict";
+    function hello() { }
     exports.hello = hello;
 });

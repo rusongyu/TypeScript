@@ -13,16 +13,8 @@ foo({ x: false, y: 0, z: "" });
 function foo() {
     var rest = [];
     for (var _i = 0; _i < arguments.length; _i++) {
-        rest[_i - 0] = arguments[_i];
+        rest[_i] = arguments[_i];
     }
 }
-foo({
-    x: "",
-    y: 0,
-    z: false
-});
-foo({
-    x: false,
-    y: 0,
-    z: ""
-});
+foo({ x: "", y: 0, z: false });
+foo({ x: false, y: 0, z: "" });

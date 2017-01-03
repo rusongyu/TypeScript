@@ -98,7 +98,7 @@ var C7 = (function () {
     function C7() {
     }
     return C7;
-})();
+}());
 var x7;
 var x7;
 var x8;
@@ -122,8 +122,5 @@ var E;
 f15(E.x).toLowerCase();
 var x;
 f16(x);
-var y = [
-    "1",
-    false
-];
+var y = ["1", false];
 y[0].toLowerCase();

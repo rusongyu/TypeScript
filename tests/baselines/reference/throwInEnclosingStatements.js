@@ -1,4 +1,5 @@
 //// [throwInEnclosingStatements.ts]
+
 function fn(x) {
     throw x;
 }
@@ -50,9 +51,7 @@ var aa = {
 function fn(x) {
     throw x;
 }
-(function (x) {
-    throw x;
-});
+(function (x) { throw x; });
 var y;
 switch (y) {
     case 'a':
@@ -85,7 +84,7 @@ var C = (function () {
         throw this.value;
     };
     return C;
-})();
+}());
 var aa = {
     id: 12,
     biz: function () {

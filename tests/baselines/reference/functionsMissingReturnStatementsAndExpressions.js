@@ -1,5 +1,6 @@
 //// [functionsMissingReturnStatementsAndExpressions.ts]
 
+
 function f1(): string {
     // errors because there are no return statements
 }
@@ -90,6 +91,17 @@ function f18() {
     return "Okay, not type annotated.";
 }
 
+function f19(): void | number {
+    // Okay; function return type is union containing void
+}
+
+function f20(): any | number {
+    // Okay; function return type is union containing any
+}
+
+function f21(): number | string {
+    // Not okay; union does not contain void or any
+}
 
 class C {
     public get m1() {
@@ -190,6 +202,15 @@ function f17() {
 function f18() {
     return "Okay, not type annotated.";
 }
+function f19() {
+    // Okay; function return type is union containing void
+}
+function f20() {
+    // Okay; function return type is union containing any
+}
+function f21() {
+    // Not okay; union does not contain void or any
+}
 var C = (function () {
     function C() {
     }
@@ -228,10 +249,11 @@ var C = (function () {
             // Not fine, since we can *only* consist of a single throw statement
             // if no return statements are present but we are a get accessor.
             throw null;
-            throw undefined.;
+            throw undefined.
+            ;
         },
         enumerable: true,
         configurable: true
     });
     return C;
-})();
+}());

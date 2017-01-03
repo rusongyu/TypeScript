@@ -1,4 +1,5 @@
 //// [functionImplementations.ts]
+
 // FunctionExpression with no return type annotation and no return statement returns void
 var v: void = function () { } ();
 
@@ -157,15 +158,13 @@ var f12: (x: number) => any = x => { // should be (x: number) => Base | AnotherC
 }
 
 //// [functionImplementations.js]
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 // FunctionExpression with no return type annotation and no return statement returns void
-var v = function () {
-}();
+var v = function () { }();
 // FunctionExpression f with no return type annotation and directly references f in its body returns any
 var a = function f() {
     return f;
@@ -233,14 +232,14 @@ var Base = (function () {
     function Base() {
     }
     return Base;
-})();
+}());
 var Derived = (function (_super) {
     __extends(Derived, _super);
     function Derived() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     return Derived;
-})(Base);
+}(Base));
 var b;
 var b = function () {
     return new Base();
@@ -269,10 +268,7 @@ function opt1(n) {
 }
 // Function signature with optional parameter, no type annotation and initializer has initializer's widened type
 function opt2(n) {
-    if (n === void 0) { n = {
-        x: null,
-        y: undefined
-    }; }
+    if (n === void 0) { n = { x: null, y: undefined }; }
     var m = n;
     var m;
 }
@@ -291,15 +287,15 @@ function f6() {
 var Derived2 = (function (_super) {
     __extends(Derived2, _super);
     function Derived2() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     return Derived2;
-})(Base);
+}(Base));
 var AnotherClass = (function () {
     function AnotherClass() {
     }
     return AnotherClass;
-})();
+}());
 // if f is a contextually typed function expression, the inferred return type is the union type
 // of the types of the return statement expressions in the function body, 
 // ignoring return statements with no expressions.

@@ -6,9 +6,12 @@ var STRING: string;
 var STRING1: string[] = ["", "abc"];
 >STRING1 : string[]
 >["", "abc"] : string[]
+>"" : ""
+>"abc" : "abc"
 
 function foo(): string { return "abc"; }
 >foo : () => string
+>"abc" : "abc"
 
 class A {
 >A : A
@@ -18,6 +21,7 @@ class A {
 
     static foo() { return ""; }
 >foo : () => string
+>"" : ""
 }
 module M {
 >M : typeof M
@@ -45,20 +49,24 @@ var ResultIsBoolean2 = !STRING1;
 // string type literal
 var ResultIsBoolean3 = !"";
 >ResultIsBoolean3 : boolean
->!"" : boolean
+>!"" : true
+>"" : ""
 
 var ResultIsBoolean4 = !{ x: "", y: "" };
 >ResultIsBoolean4 : boolean
 >!{ x: "", y: "" } : boolean
 >{ x: "", y: "" } : { x: string; y: string; }
 >x : string
+>"" : ""
 >y : string
+>"" : ""
 
 var ResultIsBoolean5 = !{ x: "", y: (s: string) => { return s; } };
 >ResultIsBoolean5 : boolean
 >!{ x: "", y: (s: string) => { return s; } } : boolean
 >{ x: "", y: (s: string) => { return s; } } : { x: string; y: (s: string) => string; }
 >x : string
+>"" : ""
 >y : (s: string) => string
 >(s: string) => { return s; } : (s: string) => string
 >s : string
@@ -84,6 +92,7 @@ var ResultIsBoolean8 = !STRING1[0];
 >!STRING1[0] : boolean
 >STRING1[0] : string
 >STRING1 : string[]
+>0 : 0
 
 var ResultIsBoolean9 = !foo();
 >ResultIsBoolean9 : boolean
@@ -114,6 +123,7 @@ var ResultIsBoolean12 = !STRING.charAt(0);
 >STRING.charAt : (pos: number) => string
 >STRING : string
 >charAt : (pos: number) => string
+>0 : 0
 
 // multiple ! operator
 var ResultIsBoolean13 = !!STRING;
@@ -134,7 +144,8 @@ var ResultIsBoolean14 = !!!(STRING + STRING);
 
 // miss assignment operators
 !"";
->!"" : boolean
+>!"" : true
+>"" : ""
 
 !STRING;
 >!STRING : boolean

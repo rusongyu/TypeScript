@@ -8,10 +8,9 @@ var r2: A<number> = <A<A<number>>>foo; // error
 var A = (function () {
     function A() {
     }
-    A.prototype.foo = function (x) {
-    };
+    A.prototype.foo = function (x) { };
     return A;
-})();
+}());
 var foo = new A();
 var r = new A(); // error
 var r2 = foo; // error

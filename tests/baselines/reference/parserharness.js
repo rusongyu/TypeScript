@@ -2096,11 +2096,10 @@ module Harness {
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 ///<reference path='..\compiler\io.ts'/>
 ///<reference path='..\compiler\typescript.ts'/>
@@ -2151,9 +2150,7 @@ var Harness;
         function bugs(content) {
             var bugs = content.match(/\bbug (\d+)/i);
             if (bugs) {
-                bugs.forEach(function (bug) {
-                    return assert.bug(bug);
-                });
+                bugs.forEach(function (bug) { return assert.bug(bug); });
             }
         }
         Assert.bugs = bugs;
@@ -2166,9 +2163,7 @@ var Harness;
         function arrayLengthIs(arr, length) {
             if (arr.length != length) {
                 var actual = '';
-                arr.forEach(function (n) {
-                    return actual = actual + '\n      ' + n.toString();
-                });
+                arr.forEach(function (n) { return actual = actual + '\n      ' + n.toString(); });
                 Assert.throwAssertError(new Error('Expected array to have ' + length + ' elements. Actual elements were:' + actual));
             }
         }
@@ -2275,30 +2270,19 @@ var Harness;
     var Logger = (function () {
         function Logger() {
         }
-        Logger.prototype.start = function (fileName, priority) {
-        };
-        Logger.prototype.end = function (fileName) {
-        };
-        Logger.prototype.scenarioStart = function (scenario) {
-        };
-        Logger.prototype.scenarioEnd = function (scenario, error) {
-        };
-        Logger.prototype.testStart = function (test) {
-        };
-        Logger.prototype.pass = function (test) {
-        };
-        Logger.prototype.bug = function (test) {
-        };
-        Logger.prototype.fail = function (test) {
-        };
-        Logger.prototype.error = function (test, error) {
-        };
-        Logger.prototype.comment = function (comment) {
-        };
-        Logger.prototype.verify = function (test, passed, actual, expected, message) {
-        };
+        Logger.prototype.start = function (fileName, priority) { };
+        Logger.prototype.end = function (fileName) { };
+        Logger.prototype.scenarioStart = function (scenario) { };
+        Logger.prototype.scenarioEnd = function (scenario, error) { };
+        Logger.prototype.testStart = function (test) { };
+        Logger.prototype.pass = function (test) { };
+        Logger.prototype.bug = function (test) { };
+        Logger.prototype.fail = function (test) { };
+        Logger.prototype.error = function (test, error) { };
+        Logger.prototype.comment = function (comment) { };
+        Logger.prototype.verify = function (test, passed, actual, expected, message) { };
         return Logger;
-    })();
+    }());
     Harness.Logger = Logger;
     // Logger-related functions
     var loggers = [];
@@ -2363,16 +2347,13 @@ var Harness;
                 return false;
             }
         };
-        Runnable.prototype.run = function (done) {
-        };
+        Runnable.prototype.run = function (done) { };
         Runnable.prototype.runBlock = function (done) {
             return this.call(this.block, done);
         };
         Runnable.prototype.runChild = function (index, done) {
             var _this = this;
-            return this.call((function (done) {
-                return _this.children[index].run(done);
-            }), done);
+            return this.call((function (done) { return _this.children[index].run(done); }), done);
         };
         Runnable.pushGlobalErrorHandler = function (done) {
             errorHandlerStack.push(function (e) {
@@ -2390,18 +2371,19 @@ var Harness;
                 errorHandlerStack[errorHandlerStack.length - 1](e);
             }
         };
-        // The current stack of Runnable objects
-        Runnable.currentStack = [];
-        Runnable.errorHandlerStack = [];
         return Runnable;
-    })();
+    }());
+    // The current stack of Runnable objects
+    Runnable.currentStack = [];
+    Runnable.errorHandlerStack = [];
     Harness.Runnable = Runnable;
     var TestCase = (function (_super) {
         __extends(TestCase, _super);
         function TestCase(description, block) {
-            _super.call(this, description, block);
-            this.description = description;
-            this.block = block;
+            var _this = _super.call(this, description, block) || this;
+            _this.description = description;
+            _this.block = block;
+            return _this;
         }
         TestCase.prototype.addChild = function (child) {
             throw new Error("Testcases may not be nested inside other testcases");
@@ -2410,25 +2392,17 @@ var Harness;
         TestCase.prototype.run = function (done) {
             var that = this;
             Runnable.currentStack.push(this);
-            emitLog('testStart', {
-                desc: this.description
-            });
+            emitLog('testStart', { desc: this.description });
             if (this.block) {
                 var async = this.runBlock(function (e) {
                     if (e) {
                         that.passed = false;
                         that.error = e;
-                        emitLog('error', {
-                            desc: this.description,
-                            pass: false
-                        }, e);
+                        emitLog('error', { desc: this.description, pass: false }, e);
                     }
                     else {
                         that.passed = true;
-                        emitLog('pass', {
-                            desc: this.description,
-                            pass: true
-                        });
+                        emitLog('pass', { desc: this.description, pass: true });
                     }
                     Runnable.currentStack.pop();
                     done();
@@ -2436,37 +2410,29 @@ var Harness;
             }
         };
         return TestCase;
-    })(Runnable);
+    }(Runnable));
     Harness.TestCase = TestCase;
     var Scenario = (function (_super) {
         __extends(Scenario, _super);
         function Scenario(description, block) {
-            _super.call(this, description, block);
-            this.description = description;
-            this.block = block;
+            var _this = _super.call(this, description, block) || this;
+            _this.description = description;
+            _this.block = block;
+            return _this;
         }
         /** Run the block, and if the block doesn't raise an error, run the children. */
         Scenario.prototype.run = function (done) {
             var that = this;
             Runnable.currentStack.push(this);
-            emitLog('scenarioStart', {
-                desc: this.description
-            });
+            emitLog('scenarioStart', { desc: this.description });
             var async = this.runBlock(function (e) {
                 Runnable.currentStack.pop();
                 if (e) {
                     that.passed = false;
                     that.error = e;
-                    var metadata = {
-                        id: undefined,
-                        desc: this.description,
-                        pass: false,
-                        bugs: assert.bugIds
-                    };
+                    var metadata = { id: undefined, desc: this.description, pass: false, bugs: assert.bugIds };
                     // Report all bugs affecting this scenario
-                    assert.bugIds.forEach(function (desc) {
-                        return emitLog('bug', metadata, desc);
-                    });
+                    assert.bugIds.forEach(function (desc) { return emitLog('bug', metadata, desc); });
                     emitLog('scenarioEnd', metadata, e);
                     done();
                 }
@@ -2493,26 +2459,19 @@ var Harness;
                 if (async)
                     return;
             }
-            var metadata = {
-                id: undefined,
-                desc: this.description,
-                pass: this.passed,
-                bugs: assert.bugIds
-            };
+            var metadata = { id: undefined, desc: this.description, pass: this.passed, bugs: assert.bugIds };
             // Report all bugs affecting this scenario
-            assert.bugIds.forEach(function (desc) {
-                return emitLog('bug', metadata, desc);
-            });
+            assert.bugIds.forEach(function (desc) { return emitLog('bug', metadata, desc); });
             emitLog('scenarioEnd', metadata);
             done();
         };
         return Scenario;
-    })(Runnable);
+    }(Runnable));
     Harness.Scenario = Scenario;
     var Run = (function (_super) {
         __extends(Run, _super);
         function Run() {
-            _super.call(this, 'Test Run', null);
+            return _super.call(this, 'Test Run', null) || this;
         }
         Run.prototype.run = function () {
             emitLog('start');
@@ -2538,15 +2497,13 @@ var Harness;
             emitLog('end');
         };
         return Run;
-    })(Runnable);
+    }(Runnable));
     Harness.Run = Run;
     // Performance test
     var Perf;
     (function (Perf) {
         var Clock;
         (function (Clock) {
-            Clock.now;
-            Clock.resolution;
             if (typeof WScript !== "undefined" && typeof global['WScript'].InitializeProjection !== "undefined") {
                 // Running in JSHost.
                 global['WScript'].InitializeProjection();
@@ -2575,7 +2532,7 @@ var Harness;
                 this.time = (Clock.now() - this.startTime) / Clock.resolution * 1000;
             };
             return Timer;
-        })();
+        }());
         Perf.Timer = Timer;
         var Dataset = (function () {
             function Dataset() {
@@ -2618,7 +2575,7 @@ var Harness;
                 return Math.sqrt(sumOfSquares / this.data.length);
             };
             return Dataset;
-        })();
+        }());
         Perf.Dataset = Dataset;
         // Base benchmark class with some defaults.
         var Benchmark = (function () {
@@ -2627,22 +2584,17 @@ var Harness;
                 this.description = "";
                 this.results = {};
             }
-            Benchmark.prototype.bench = function (subBench) {
-            };
-            Benchmark.prototype.before = function () {
-            };
-            Benchmark.prototype.beforeEach = function () {
-            };
-            Benchmark.prototype.after = function () {
-            };
-            Benchmark.prototype.afterEach = function () {
-            };
+            Benchmark.prototype.bench = function (subBench) { };
+            Benchmark.prototype.before = function () { };
+            Benchmark.prototype.beforeEach = function () { };
+            Benchmark.prototype.after = function () { };
+            Benchmark.prototype.afterEach = function () { };
             Benchmark.prototype.addTimingFor = function (name, timing) {
                 this.results[name] = this.results[name] || new Dataset();
                 this.results[name].add(timing);
             };
             return Benchmark;
-        })();
+        }());
         Perf.Benchmark = Benchmark;
         Perf.benchmarks = [];
         var timeFunction;
@@ -2672,13 +2624,9 @@ var Harness;
                 b.after();
                 for (var prop in b.results) {
                     var description = b.description + (prop ? ": " + prop : '');
-                    emitLog('testStart', {
-                        desc: description
-                    });
+                    emitLog('testStart', { desc: description });
                     emitLog('pass', {
-                        desc: description,
-                        pass: true,
-                        perfResults: {
+                        desc: description, pass: true, perfResults: {
                             mean: b.results[prop].mean(),
                             min: b.results[prop].min(),
                             max: b.results[prop].max(),
@@ -2727,7 +2675,7 @@ var Harness;
                 this.currentLine = "";
             };
             return WriterAggregator;
-        })();
+        }());
         Compiler.WriterAggregator = WriterAggregator;
         /** Mimics having multiple files, later concatenated to a single file. */
         var EmitterIOHost = (function () {
@@ -2743,18 +2691,10 @@ var Harness;
                 this.fileCollection[s] = writer;
                 return writer;
             };
-            EmitterIOHost.prototype.directoryExists = function (s) {
-                return false;
-            };
-            EmitterIOHost.prototype.fileExists = function (s) {
-                return typeof this.fileCollection[s] !== 'undefined';
-            };
-            EmitterIOHost.prototype.resolvePath = function (s) {
-                return s;
-            };
-            EmitterIOHost.prototype.reset = function () {
-                this.fileCollection = {};
-            };
+            EmitterIOHost.prototype.directoryExists = function (s) { return false; };
+            EmitterIOHost.prototype.fileExists = function (s) { return typeof this.fileCollection[s] !== 'undefined'; };
+            EmitterIOHost.prototype.resolvePath = function (s) { return s; };
+            EmitterIOHost.prototype.reset = function () { this.fileCollection = {}; };
             EmitterIOHost.prototype.toArray = function () {
                 var result = [];
                 for (var p in this.fileCollection) {
@@ -2764,17 +2704,14 @@ var Harness;
                             if (p !== '0.js') {
                                 current.lines.unshift('////[' + p + ']');
                             }
-                            result.push({
-                                filename: p,
-                                file: this.fileCollection[p]
-                            });
+                            result.push({ filename: p, file: this.fileCollection[p] });
                         }
                     }
                 }
                 return result;
             };
             return EmitterIOHost;
-        })();
+        }());
         Compiler.EmitterIOHost = EmitterIOHost;
         var libFolder = global['WScript'] ? TypeScript.filePath(global['WScript'].ScriptFullName) : (__dirname + '/');
         Compiler.libText = IO ? IO.readFile(libFolder + "lib.d.ts") : '';
@@ -2831,9 +2768,7 @@ var Harness;
             Type.prototype.normalizeToArray = function (arg) {
                 if ((Array.isArray && Array.isArray(arg)) || arg instanceof Array)
                     return arg;
-                return [
-                    arg
-                ];
+                return [arg];
             };
             Type.prototype.compilesOk = function (testCode) {
                 var errors = null;
@@ -2940,7 +2875,7 @@ var Harness;
                 });
             };
             return Type;
-        })();
+        }());
         Compiler.Type = Type;
         var TypeFactory = (function () {
             function TypeFactory() {
@@ -2991,9 +2926,7 @@ var Harness;
                                 var tyInfo = compiler.pullGetTypeInfoAtPosition(targetPosition, script2);
                                 var name = this.getTypeInfoName(tyInfo.ast);
                                 var foundValue = new Type(tyInfo.typeInfo, code, name);
-                                if (!matchingIdentifiers.some(function (value) {
-                                    return (value.identifier === foundValue.identifier) && (value.code === foundValue.code) && (value.type === foundValue.type);
-                                })) {
+                                if (!matchingIdentifiers.some(function (value) { return (value.identifier === foundValue.identifier) && (value.code === foundValue.code) && (value.type === foundValue.type); })) {
                                     matchingIdentifiers.push(foundValue);
                                 }
                             }
@@ -3003,9 +2936,7 @@ var Harness;
                                     var name = this.getTypeInfoName(tyInfo.ast);
                                     if (name === targetIdentifier) {
                                         var foundValue = new Type(tyInfo.typeInfo, code, targetIdentifier);
-                                        if (!matchingIdentifiers.some(function (value) {
-                                            return (value.identifier === foundValue.identifier) && (value.code === foundValue.code) && (value.type === foundValue.type);
-                                        })) {
+                                        if (!matchingIdentifiers.some(function (value) { return (value.identifier === foundValue.identifier) && (value.code === foundValue.code) && (value.type === foundValue.type); })) {
                                             matchingIdentifiers.push(foundValue);
                                         }
                                     }
@@ -3085,7 +3016,7 @@ var Harness;
                 });
             };
             return TypeFactory;
-        })();
+        }());
         Compiler.TypeFactory = TypeFactory;
         /** Generates a .d.ts file for the given code
           * @param verifyNoDeclFile pass true when the given code should generate no decl file, false otherwise
@@ -3111,15 +3042,9 @@ var Harness;
                         outputs[fn] = new Harness.Compiler.WriterAggregator();
                         return outputs[fn];
                     },
-                    directoryExists: function (path) {
-                        return true;
-                    },
-                    fileExists: function (path) {
-                        return true;
-                    },
-                    resolvePath: function (path) {
-                        return path;
-                    }
+                    directoryExists: function (path) { return true; },
+                    fileExists: function (path) { return true; },
+                    resolvePath: function (path) { return path; }
                 });
                 compiler.emitDeclarations();
                 var results = null;
@@ -3160,9 +3085,7 @@ var Harness;
                 this.fileResults = fileResults;
                 this.scripts = scripts;
                 var lines = [];
-                fileResults.forEach(function (v) {
-                    return lines = lines.concat(v.file.lines);
-                });
+                fileResults.forEach(function (v) { return lines = lines.concat(v.file.lines); });
                 this.code = lines.join("\n");
                 this.errors = [];
                 for (var i = 0; i < errorLines.length; i++) {
@@ -3189,7 +3112,7 @@ var Harness;
                 return false;
             };
             return CompilerResult;
-        })();
+        }());
         Compiler.CompilerResult = CompilerResult;
         // Compiler Error.
         var CompilerError = (function () {
@@ -3203,7 +3126,7 @@ var Harness;
                 return this.file + "(" + this.line + "," + this.column + "): " + this.message;
             };
             return CompilerError;
-        })();
+        }());
         Compiler.CompilerError = CompilerError;
         /** Create a new instance of the compiler with default settings and lib.d.ts, then typecheck */
         function recreate() {
@@ -3219,9 +3142,7 @@ var Harness;
         function reset() {
             stdout.reset();
             stderr.reset();
-            var files = compiler.units.map(function (value) {
-                return value.filename;
-            });
+            var files = compiler.units.map(function (value) { return value.filename; });
             for (var i = 0; i < files.length; i++) {
                 var fname = files[i];
                 if (fname !== 'lib.d.ts') {
@@ -3382,24 +3303,12 @@ var Harness;
     (function (TestCaseParser) {
         optionRegex = /^[\/]{2}\s*@(\w+):\s*(\S*)/gm; // multiple matches on multiple lines
         // List of allowed metadata names
-        var fileMetadataNames = [
-            "filename",
-            "comments",
-            "declaration",
-            "module",
-            "nolib",
-            "sourcemap",
-            "target",
-            "out"
-        ];
+        var fileMetadataNames = ["filename", "comments", "declaration", "module", "nolib", "sourcemap", "target", "out"];
         function extractCompilerSettings(content) {
             var opts = [];
             var match;
             while ((match = optionRegex.exec(content)) != null) {
-                opts.push({
-                    flag: match[1],
-                    value: match[2]
-                });
+                opts.push({ flag: match[1], value: match[2] });
             }
             return opts;
         }
@@ -3492,10 +3401,7 @@ var Harness;
                 references: refs
             };
             files.push(newTestFile);
-            return {
-                settings: settings,
-                testUnitData: files
-            };
+            return { settings: settings, testUnitData: files };
         }
         TestCaseParser.makeUnitsFromTest = makeUnitsFromTest;
     })(TestCaseParser = Harness.TestCaseParser || (Harness.TestCaseParser = {}));
@@ -3542,25 +3448,13 @@ var Harness;
                 return TypeScript.ScriptEditRange.unknown();
             }
             var entries = this.editRanges.slice(initialEditRangeIndex);
-            var minDistFromStart = entries.map(function (x) {
-                return x.editRange.minChar;
-            }).reduce(function (prev, current) {
-                return Math.min(prev, current);
-            });
-            var minDistFromEnd = entries.map(function (x) {
-                return x.length - x.editRange.limChar;
-            }).reduce(function (prev, current) {
-                return Math.min(prev, current);
-            });
-            var aggDelta = entries.map(function (x) {
-                return x.editRange.delta;
-            }).reduce(function (prev, current) {
-                return prev + current;
-            });
+            var minDistFromStart = entries.map(function (x) { return x.editRange.minChar; }).reduce(function (prev, current) { return Math.min(prev, current); });
+            var minDistFromEnd = entries.map(function (x) { return x.length - x.editRange.limChar; }).reduce(function (prev, current) { return Math.min(prev, current); });
+            var aggDelta = entries.map(function (x) { return x.editRange.delta; }).reduce(function (prev, current) { return prev + current; });
             return new TypeScript.ScriptEditRange(minDistFromStart, entries[0].length - minDistFromEnd, aggDelta);
         };
         return ScriptInfo;
-    })();
+    }());
     Harness.ScriptInfo = ScriptInfo;
     var TypeScriptLS = (function () {
         function TypeScriptLS() {
@@ -3606,21 +3500,11 @@ var Harness;
         //////////////////////////////////////////////////////////////////////
         // ILogger implementation
         //
-        TypeScriptLS.prototype.information = function () {
-            return false;
-        };
-        TypeScriptLS.prototype.debug = function () {
-            return true;
-        };
-        TypeScriptLS.prototype.warning = function () {
-            return true;
-        };
-        TypeScriptLS.prototype.error = function () {
-            return true;
-        };
-        TypeScriptLS.prototype.fatal = function () {
-            return true;
-        };
+        TypeScriptLS.prototype.information = function () { return false; };
+        TypeScriptLS.prototype.debug = function () { return true; };
+        TypeScriptLS.prototype.warning = function () { return true; };
+        TypeScriptLS.prototype.error = function () { return true; };
+        TypeScriptLS.prototype.fatal = function () { return true; };
         TypeScriptLS.prototype.log = function (s) {
             // For debugging...
             //IO.printLine("TypeScriptLS:" + s);
@@ -3667,8 +3551,7 @@ var Harness;
         TypeScriptLS.prototype.parseSourceText = function (fileName, sourceText) {
             var parser = new TypeScript.Parser();
             parser.setErrorRecovery(null);
-            parser.errorCallback = function (a, b, c, d) {
-            };
+            parser.errorCallback = function (a, b, c, d) { };
             var script = parser.parse(sourceText, fileName, 0);
             return script;
         };
@@ -3728,10 +3611,7 @@ var Harness;
             function mapEdits(edits) {
                 var result = [];
                 for (var i = 0; i < edits.length; i++) {
-                    result.push({
-                        edit: edits[i],
-                        index: i
-                    });
+                    result.push({ edit: edits[i], index: i });
                 }
                 return result;
             }
@@ -3773,12 +3653,10 @@ var Harness;
             return result;
         };
         TypeScriptLS.prototype.getHostSettings = function () {
-            return JSON.stringify({
-                usePullLanguageService: Harness.usePull
-            });
+            return JSON.stringify({ usePullLanguageService: Harness.usePull });
         };
         return TypeScriptLS;
-    })();
+    }());
     Harness.TypeScriptLS = TypeScriptLS;
     // Describe/it definitions
     function describe(description, block) {
@@ -3812,9 +3690,7 @@ var Harness;
         Runner.runCollateral = runCollateral;
         function runJSString(code, callback) {
             // List of names that get overriden by various test code we eval
-            var dangerNames = [
-                'Array'
-            ];
+            var dangerNames = ['Array'];
             var globalBackup = {};
             var n = null;
             for (n in dangerNames) {
@@ -3932,10 +3808,7 @@ var Harness;
                 expected = expected.replace(/\r\n?/g, '\n');
                 actual = actual.replace(/\r\n?/g, '\n');
             }
-            return {
-                expected: expected,
-                actual: actual
-            };
+            return { expected: expected, actual: actual };
         }
         function writeComparison(expected, actual, relativeFilename, actualFilename, descriptionForDescribe) {
             if (expected != actual) {

@@ -10,11 +10,10 @@ class P extends SomeBase {
 
 
 //// [staticMemberAccessOffDerivedType1.js]
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var SomeBase = (function () {
     function SomeBase() {
@@ -23,12 +22,12 @@ var SomeBase = (function () {
         return 2;
     };
     return SomeBase;
-})();
+}());
 var P = (function (_super) {
     __extends(P, _super);
     function P() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
-    P.SomeNumber = P.GetNumber();
     return P;
-})(SomeBase);
+}(SomeBase));
+P.SomeNumber = P.GetNumber();

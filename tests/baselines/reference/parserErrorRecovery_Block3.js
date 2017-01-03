@@ -15,4 +15,4 @@ var C = (function () {
     C.prototype.b = function () {
     };
     return C;
-})();
+}());

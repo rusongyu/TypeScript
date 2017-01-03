@@ -50,16 +50,13 @@ var NonGeneric;
             get: function () {
                 return 1;
             },
-            set: function (v) {
-            },
+            set: function (v) { },
             enumerable: true,
             configurable: true
         });
-        C.prototype.fn = function () {
-            return this;
-        };
+        C.prototype.fn = function () { return this; };
         return C;
-    })();
+    }());
     var c = new C(1, 2);
     var r = c.fn();
     var r2 = r.x;
@@ -78,16 +75,13 @@ var Generic;
             get: function () {
                 return null;
             },
-            set: function (v) {
-            },
+            set: function (v) { },
             enumerable: true,
             configurable: true
         });
-        C.prototype.fn = function () {
-            return this;
-        };
+        C.prototype.fn = function () { return this; };
         return C;
-    })();
+    }());
     var c = new C(1, '');
     var r = c.fn();
     var r2 = r.x;

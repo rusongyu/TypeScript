@@ -1,4 +1,5 @@
 //// [functionWithMultipleReturnStatements2.ts]
+
 // return type of a function with multiple returns is the BCT of each return statement
 // no errors expected here
 
@@ -166,22 +167,18 @@ function f10() {
 // returns number => void
 function f11() {
     if (true) {
-        return function (x) {
-        };
+        return function (x) { };
     }
     else {
-        return function (x) {
-        };
+        return function (x) { };
     }
 }
 // returns Object => void
 function f12() {
     if (true) {
-        return function (x) {
-        };
+        return function (x) { };
     }
     else {
-        return function (x) {
-        };
+        return function (x) { };
     }
 }

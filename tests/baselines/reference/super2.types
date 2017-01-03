@@ -7,12 +7,14 @@ class Base5 {
 >x : () => string
 
         return "BaseX";
+>"BaseX" : "BaseX"
     }
     
     public y() {
 >y : () => string
 
         return "BaseY";
+>"BaseY" : "BaseY"
     }
 }
 
@@ -24,6 +26,7 @@ class Sub5 extends Base5 {
 >x : () => string
 
         return "SubX";
+>"SubX" : "SubX"
     }
 }
 
@@ -59,6 +62,7 @@ class Base6 {
 >x : () => string
 
         return "BaseX";
+>"BaseX" : "BaseX"
     }
 }
 
@@ -70,6 +74,7 @@ class Sub6 extends Base6 {
 >y : () => string
 
         return "SubY";
+>"SubY" : "SubY"
     }
 }
 

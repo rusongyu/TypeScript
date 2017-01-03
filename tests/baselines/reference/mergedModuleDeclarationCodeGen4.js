@@ -27,13 +27,11 @@ var superContain;
             (function (buz) {
                 var data;
                 (function (data) {
-                    function foo() {
-                    }
+                    function foo() { }
                     data.foo = foo;
                 })(data = buz.data || (buz.data = {}));
             })(buz = my.buz || (my.buz = {}));
         })(my = contain_1.my || (contain_1.my = {}));
-        var my;
         (function (my_1) {
             var buz;
             (function (buz_1) {

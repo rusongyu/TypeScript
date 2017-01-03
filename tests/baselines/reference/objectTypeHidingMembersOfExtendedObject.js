@@ -55,31 +55,29 @@ var b: {
 var r4: void = b.valueOf();
 
 //// [objectTypeHidingMembersOfExtendedObject.js]
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var A = (function () {
     function A() {
     }
     return A;
-})();
+}());
 var B = (function (_super) {
     __extends(B, _super);
     function B() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     return B;
-})(A);
+}(A));
 var C = (function () {
     function C() {
     }
-    C.prototype.valueOf = function () {
-    };
+    C.prototype.valueOf = function () { };
     return C;
-})();
+}());
 var c;
 var r1 = c.valueOf();
 var r1b = c.data;
@@ -91,8 +89,7 @@ var r2b = i.data;
 var r2c = r2b['hm']; // should be 'Object'
 var r2d = i['hm']; // should be 'any'
 var a = {
-    valueOf: function () {
-    },
+    valueOf: function () { },
     data: new B()
 };
 var r3 = a.valueOf();

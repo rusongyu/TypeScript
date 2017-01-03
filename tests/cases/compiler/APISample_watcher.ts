@@ -1,6 +1,7 @@
 ﻿// @module: commonjs
-// @includebuiltfile: typescript.d.ts
-// @stripInternal:true
+// @includebuiltfile: typescript_standalone.d.ts
+// @noImplicitAny:true
+// @strictNullChecks:true
 
 /*
  * Note: This test is a public API sample. The sample sources can be found 
@@ -10,13 +11,19 @@
 
 declare var process: any;
 declare var console: any;
-declare var fs: any;
+declare var fs: {
+    existsSync(path: string): boolean;
+    readdirSync(path: string): string[];
+    readFileSync(filename: string, encoding?: string): string;
+    writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
+    watchFile(filename: string, options: { persistent?: boolean; interval?: number; }, listener: (curr: { mtime: Date }, prev: { mtime: Date }) => void): void;
+};
 declare var path: any;
 
-import ts = require("typescript");
+import * as ts from "typescript";
 
 function watch(rootFileNames: string[], options: ts.CompilerOptions) {
-    var files: ts.Map<{ version: number }> = {};
+    const files: ts.MapLike<{ version: number }> = {};
 
     // initialize the list of files
     rootFileNames.forEach(fileName => {
@@ -24,7 +31,7 @@ function watch(rootFileNames: string[], options: ts.CompilerOptions) {
     });
 
     // Create the language service host to allow the LS to communicate with the host
-    var servicesHost: ts.LanguageServiceHost = {
+    const servicesHost: ts.LanguageServiceHost = {
         getScriptFileNames: () => rootFileNames,
         getScriptVersion: (fileName) => files[fileName] && files[fileName].version.toString(),
         getScriptSnapshot: (fileName) => {
@@ -40,7 +47,7 @@ function watch(rootFileNames: string[], options: ts.CompilerOptions) {
     };
 
     // Create the language service files
-    var services = ts.createLanguageService(servicesHost, ts.createDocumentRegistry())
+    const services = ts.createLanguageService(servicesHost, ts.createDocumentRegistry())
 
     // Now let's watch the files
     rootFileNames.forEach(fileName => {
@@ -65,7 +72,7 @@ function watch(rootFileNames: string[], options: ts.CompilerOptions) {
     });
 
     function emitFile(fileName: string) {
-        var output = services.getEmitOutput(fileName);
+        let output = services.getEmitOutput(fileName);
 
         if (!output.emitSkipped) {
             console.log(`Emitting ${fileName}`);
@@ -81,24 +88,25 @@ function watch(rootFileNames: string[], options: ts.CompilerOptions) {
     }
 
     function logErrors(fileName: string) {
-        var allDiagnostics = services.getCompilerOptionsDiagnostics()
+        let allDiagnostics = services.getCompilerOptionsDiagnostics()
             .concat(services.getSyntacticDiagnostics(fileName))
             .concat(services.getSemanticDiagnostics(fileName));
 
         allDiagnostics.forEach(diagnostic => {
+            let message = ts.flattenDiagnosticMessageText(diagnostic.messageText, "\n");
             if (diagnostic.file) {
-                var lineChar = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start);
-                console.log(`  Error ${diagnostic.file.fileName} (${lineChar.line + 1},${lineChar.character + 1}): ${ts.flattenDiagnosticMessageText(diagnostic.messageText, "\n")}`);
+                let { line, character } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start);
+                console.log(`  Error ${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`);
             }
             else {
-                console.log(`  Error: ${diagnostic.messageText}`);
+                console.log(`  Error: ${message}`);
             }
         });
     }
 }
 
 // Initialize files constituting the program as all .ts files in the current directory
-var currentDirectoryFiles = fs.readdirSync(process.cwd()).
+const currentDirectoryFiles = fs.readdirSync(process.cwd()).
     filter(fileName=> fileName.length >= 3 && fileName.substr(fileName.length - 3, 3) === ".ts");
 
 // Start the watcher

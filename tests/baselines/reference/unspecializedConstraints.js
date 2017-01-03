@@ -154,11 +154,10 @@ module ts {
 
 
 //// [unspecializedConstraints.js]
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var ts;
 (function (ts) {
@@ -166,11 +165,11 @@ var ts;
         function Symbol() {
         }
         return Symbol;
-    })();
+    }());
     var Type = (function (_super) {
         __extends(Type, _super);
         function Type() {
-            _super.apply(this, arguments);
+            return _super.apply(this, arguments) || this;
         }
         Type.prototype.equals = function (that) {
             if (this === that)
@@ -230,20 +229,23 @@ var ts;
         Type.prototype.isSubTypeOf = function (type) {
         };
         return Type;
-    })(Symbol);
+    }(Symbol));
     var Property = (function (_super) {
         __extends(Property, _super);
         function Property(name, type, flags) {
-            _super.call(this);
-            this.name = name;
-            this.type = type;
-            this.flags = flags;
+            var _this = _super.call(this) || this;
+            _this.name = name;
+            _this.type = type;
+            _this.flags = flags;
+            return _this;
         }
         Property.prototype.equals = function (other) {
-            return this.name === other.name && this.flags === other.flags && this.type.equals(other.type);
+            return this.name === other.name &&
+                this.flags === other.flags &&
+                this.type.equals(other.type);
         };
         return Property;
-    })(Symbol);
+    }(Symbol));
     var PropertyFlags;
     (function (PropertyFlags) {
         PropertyFlags[PropertyFlags["Optional"] = 1] = "Optional";
@@ -252,32 +254,40 @@ var ts;
     var Signature = (function (_super) {
         __extends(Signature, _super);
         function Signature(typeParameters, parameters, returnType) {
-            _super.call(this);
-            this.typeParameters = typeParameters;
-            this.parameters = parameters;
-            this.returnType = returnType;
+            var _this = _super.call(this) || this;
+            _this.typeParameters = typeParameters;
+            _this.parameters = parameters;
+            _this.returnType = returnType;
+            return _this;
         }
         Signature.prototype.equalsNoReturn = function (other) {
-            return this.parameters.length === other.parameters.length && this.typeParameters.length === other.typeParameters.length && arrayEquals(this.parameters, other.parameters) && arrayEquals(this.typeParameters, other.typeParameters);
+            return this.parameters.length === other.parameters.length &&
+                this.typeParameters.length === other.typeParameters.length &&
+                arrayEquals(this.parameters, other.parameters) &&
+                arrayEquals(this.typeParameters, other.typeParameters);
         };
         Signature.prototype.equals = function (other) {
-            return this.equalsNoReturn(other) && this.returnType.equals(other.returnType);
+            return this.equalsNoReturn(other) &&
+                this.returnType.equals(other.returnType);
         };
         return Signature;
-    })(Symbol);
+    }(Symbol));
     var Parameter = (function (_super) {
         __extends(Parameter, _super);
         function Parameter(name, type, flags) {
-            _super.call(this);
-            this.name = name;
-            this.type = type;
-            this.flags = flags;
+            var _this = _super.call(this) || this;
+            _this.name = name;
+            _this.type = type;
+            _this.flags = flags;
+            return _this;
         }
         Parameter.prototype.equals = function (other) {
-            return this.name === other.name && this.flags === other.flags && this.type.equals(other.type);
+            return this.name === other.name &&
+                this.flags === other.flags &&
+                this.type.equals(other.type);
         };
         return Parameter;
-    })(Symbol);
+    }(Symbol));
     var ParameterFlags;
     (function (ParameterFlags) {
         ParameterFlags[ParameterFlags["Optional"] = 1] = "Optional";

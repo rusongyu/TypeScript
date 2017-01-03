@@ -18,9 +18,11 @@ class StringIterator {
 
             value: "",
 >value : string
+>"" : ""
 
             done: false
 >done : boolean
+>false : false
 
         };
     }
@@ -30,6 +32,6 @@ class StringIterator {
 >iterator : symbol
 
         return this;
->this : StringIterator
+>this : this
     }
 }

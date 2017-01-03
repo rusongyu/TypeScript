@@ -12,11 +12,10 @@ module M2 {
 
 
 //// [typeValueConflict1.js]
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var M1;
 (function (M1) {
@@ -24,7 +23,7 @@ var M1;
         function A() {
         }
         return A;
-    })();
+    }());
     M1.A = A;
 })(M1 || (M1 = {}));
 var M2;
@@ -34,8 +33,8 @@ var M2;
     var B = (function (_super) {
         __extends(B, _super);
         function B() {
-            _super.apply(this, arguments);
+            return _super.apply(this, arguments) || this;
         }
         return B;
-    })(M1.A);
+    }(M1.A));
 })(M2 || (M2 = {}));

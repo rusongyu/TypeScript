@@ -68,17 +68,17 @@ var C0 = (function () {
     function C0() {
     }
     return C0;
-})();
+}());
 var C1 = (function () {
     function C1(n, s) {
     }
     return C1;
-})();
+}());
 var T = (function () {
     function T(n) {
     }
     return T;
-})();
+}());
 var anyCtor;
 var anyCtor1;
 var nestedCtor;
@@ -104,8 +104,7 @@ function newFn2(s) {
     var p;
 }
 // Construct expression of void returning function
-function fnVoid() {
-}
+function fnVoid() { }
 var t = new fnVoid();
 var t;
 // Chained new expressions

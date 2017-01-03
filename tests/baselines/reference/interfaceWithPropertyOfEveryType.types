@@ -11,6 +11,7 @@ module M {
 
     export var y = 1;
 >y : number
+>1 : 1
 }
 enum E { A }
 >E : E
@@ -79,16 +80,19 @@ interface Foo {
 var a: Foo = {
 >a : Foo
 >Foo : Foo
->{    a: 1,    b: '',    c: true,    d: {},    e: null ,    f: [1],    g: {},    h: (x: number) => 1,    i: <T>(x: T) => x,    j: <Foo>null,    k: new C(),    l: f1,    m: M,    n: {},    o: E.A} : { a: number; b: string; c: boolean; d: {}; e: null; f: number[]; g: {}; h: (x: number) => number; i: <T>(x: T) => T; j: Foo; k: C; l: () => void; m: typeof M; n: {}; o: E; }
+>{    a: 1,    b: '',    c: true,    d: {},    e: null ,    f: [1],    g: {},    h: (x: number) => 1,    i: <T>(x: T) => x,    j: <Foo>null,    k: new C(),    l: f1,    m: M,    n: {},    o: E.A} : { a: number; b: string; c: true; d: {}; e: null; f: number[]; g: {}; h: (x: number) => number; i: <T>(x: T) => T; j: Foo; k: C; l: () => void; m: typeof M; n: {}; o: E; }
 
     a: 1,
 >a : number
+>1 : 1
 
     b: '',
 >b : string
+>'' : ""
 
     c: true,
 >c : boolean
+>true : true
 
     d: {},
 >d : {}
@@ -96,10 +100,12 @@ var a: Foo = {
 
     e: null ,
 >e : null
+>null : null
 
     f: [1],
 >f : number[]
 >[1] : number[]
+>1 : 1
 
     g: {},
 >g : {}
@@ -109,6 +115,7 @@ var a: Foo = {
 >h : (x: number) => number
 >(x: number) => 1 : (x: number) => number
 >x : number
+>1 : 1
 
     i: <T>(x: T) => x,
 >i : <T>(x: T) => T
@@ -122,6 +129,7 @@ var a: Foo = {
 >j : Foo
 ><Foo>null : Foo
 >Foo : Foo
+>null : null
 
     k: new C(),
 >k : C

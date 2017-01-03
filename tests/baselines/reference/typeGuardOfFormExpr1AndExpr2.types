@@ -44,9 +44,11 @@ if (typeof strOrNumOrBool !== "string" && typeof strOrNumOrBool !== "number") {
 >typeof strOrNumOrBool !== "string" : boolean
 >typeof strOrNumOrBool : string
 >strOrNumOrBool : string | number | boolean
+>"string" : "string"
 >typeof strOrNumOrBool !== "number" : boolean
 >typeof strOrNumOrBool : string
 >strOrNumOrBool : number | boolean
+>"number" : "number"
 
     bool = strOrNumOrBool; // boolean
 >bool = strOrNumOrBool : boolean
@@ -66,12 +68,15 @@ if (typeof strOrNumOrBoolOrC !== "string" && typeof strOrNumOrBoolOrC !== "numbe
 >typeof strOrNumOrBoolOrC !== "string" : boolean
 >typeof strOrNumOrBoolOrC : string
 >strOrNumOrBoolOrC : string | number | boolean | C
+>"string" : "string"
 >typeof strOrNumOrBoolOrC !== "number" : boolean
 >typeof strOrNumOrBoolOrC : string
 >strOrNumOrBoolOrC : number | boolean | C
+>"number" : "number"
 >typeof strOrNumOrBoolOrC !== "boolean" : boolean
 >typeof strOrNumOrBoolOrC : string
 >strOrNumOrBoolOrC : boolean | C
+>"boolean" : "boolean"
 
     c = strOrNumOrBoolOrC; // C
 >c = strOrNumOrBoolOrC : C
@@ -91,12 +96,15 @@ if (typeof strOrNumOrBoolOrC !== "string" && typeof strOrNumOrBoolOrC !== "numbe
 >typeof strOrNumOrBoolOrC !== "string" : boolean
 >typeof strOrNumOrBoolOrC : string
 >strOrNumOrBoolOrC : string | number | boolean | C
+>"string" : "string"
 >typeof strOrNumOrBoolOrC !== "number" : boolean
 >typeof strOrNumOrBoolOrC : string
 >strOrNumOrBoolOrC : number | boolean | C
+>"number" : "number"
 >typeof strOrNumOrBool === "boolean" : boolean
 >typeof strOrNumOrBool : string
 >strOrNumOrBool : string | number | boolean
+>"boolean" : "boolean"
 
     cOrBool = strOrNumOrBoolOrC; // C | boolean
 >cOrBool = strOrNumOrBoolOrC : boolean | C
@@ -124,6 +132,7 @@ if (typeof strOrNumOrBool !== "string" && numOrBool !== strOrNumOrBool) {
 >typeof strOrNumOrBool !== "string" : boolean
 >typeof strOrNumOrBool : string
 >strOrNumOrBool : string | number | boolean
+>"string" : "string"
 >numOrBool !== strOrNumOrBool : boolean
 >numOrBool : number | boolean
 >strOrNumOrBool : number | boolean

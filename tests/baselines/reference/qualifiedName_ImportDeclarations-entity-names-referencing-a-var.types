@@ -4,10 +4,11 @@ module Alpha {
 
     export var x = 100;
 >x : number
+>100 : 100
 }
 
 module Beta {
->Beta : unknown
+>Beta : any
 
     import p = Alpha.x;
 >p : number

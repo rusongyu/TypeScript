@@ -25,34 +25,29 @@ var M;
     (function (buz) {
         var plop;
         (function (plop) {
-            function doom() {
-            }
+            function doom() { }
             plop.doom = doom;
-            function M() {
-            }
+            function M() { }
             plop.M = M;
         })(plop = buz.plop || (buz.plop = {}));
     })(buz = M_1.buz || (M_1.buz = {}));
 })(M || (M = {}));
-var M;
 (function (M) {
     var buz;
     (function (buz_1) {
         var plop;
         (function (plop_1) {
-            function gunk() {
-            }
-            function buz() {
-            }
+            function gunk() { }
+            function buz() { }
             var fudge = (function () {
                 function fudge() {
                 }
                 return fudge;
-            })();
+            }());
             plop_1.fudge = fudge;
+            var plop;
             (function (plop) {
-            })(plop_1.plop || (plop_1.plop = {}));
-            var plop = plop_1.plop;
+            })(plop = plop_1.plop || (plop_1.plop = {}));
             // Emit these references as follows
             var v1 = gunk; // gunk
             var v2 = buz; // buz

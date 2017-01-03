@@ -19,11 +19,10 @@ var C = (function () {
         return 1;
     };
     return C;
-})();
+}());
 var D = (function () {
     function D() {
     }
-    D.prototype.x = function (v) {
-    }; // error
+    D.prototype.x = function (v) { }; // error
     return D;
-})();
+}());

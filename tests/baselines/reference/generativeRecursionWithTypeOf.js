@@ -14,10 +14,9 @@ module M {
 var C = (function () {
     function C() {
     }
-    C.foo = function (x) {
-    };
+    C.foo = function (x) { };
     return C;
-})();
+}());
 var M;
 (function (M) {
     function f(x) {

@@ -1,4 +1,5 @@
 //// [invalidForInBreakStatements.ts]
+
 // All errors
 
 // naked break not allowed
@@ -59,8 +60,7 @@ THREE: for (var x in {}) {
 // break forward
 for (var x in {}) {
     break FIVE;
-    FIVE: for (var x in {}) {
-    }
+    FIVE: for (var x in {}) { }
 }
 // label on non-loop statement
 NINE: var y = 12;

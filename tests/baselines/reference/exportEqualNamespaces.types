@@ -11,8 +11,8 @@ interface server {
 >server : server
 
     (): server.Server;
->server : unknown
->Server : export=.Server
+>server : any
+>Server : server.Server
 
     startTime: Date;
 >startTime : Date
@@ -21,6 +21,7 @@ interface server {
  
 var x = 5;
 >x : number
+>5 : 5
 
 var server = new Date();
 >server : Date

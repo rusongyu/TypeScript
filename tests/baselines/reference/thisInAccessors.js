@@ -38,9 +38,7 @@ var GetterOnly = (function () {
     Object.defineProperty(GetterOnly.prototype, "Value", {
         get: function () {
             var _this = this;
-            var fn = function () {
-                return _this;
-            };
+            var fn = function () { return _this; };
             return '';
         },
         set: function (val) {
@@ -49,7 +47,7 @@ var GetterOnly = (function () {
         configurable: true
     });
     return GetterOnly;
-})();
+}());
 // this capture only in setter
 var SetterOnly = (function () {
     function SetterOnly() {
@@ -60,15 +58,13 @@ var SetterOnly = (function () {
         },
         set: function (val) {
             var _this = this;
-            var fn = function () {
-                return _this;
-            };
+            var fn = function () { return _this; };
         },
         enumerable: true,
         configurable: true
     });
     return SetterOnly;
-})();
+}());
 // this capture only in both setter and getter
 var GetterAndSetter = (function () {
     function GetterAndSetter() {
@@ -76,19 +72,15 @@ var GetterAndSetter = (function () {
     Object.defineProperty(GetterAndSetter.prototype, "Value", {
         get: function () {
             var _this = this;
-            var fn = function () {
-                return _this;
-            };
+            var fn = function () { return _this; };
             return '';
         },
         set: function (val) {
             var _this = this;
-            var fn = function () {
-                return _this;
-            };
+            var fn = function () { return _this; };
         },
         enumerable: true,
         configurable: true
     });
     return GetterAndSetter;
-})();
+}());

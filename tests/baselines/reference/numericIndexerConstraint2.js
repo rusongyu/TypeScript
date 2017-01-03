@@ -8,10 +8,9 @@ x = a;
 var Foo = (function () {
     function Foo() {
     }
-    Foo.prototype.foo = function () {
-    };
+    Foo.prototype.foo = function () { };
     return Foo;
-})();
+}());
 var x;
 var a;
 x = a;

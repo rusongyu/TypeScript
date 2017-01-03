@@ -1,6 +1,7 @@
 ﻿// @module: commonjs
-// @includebuiltfile: typescript.d.ts
-// @stripInternal:true
+// @includebuiltfile: typescript_standalone.d.ts
+// @noImplicitAny:true
+// @strictNullChecks:true
 
 /*
  * Note: This test is a public API sample. The sample sources can be found 
@@ -18,11 +19,12 @@ export function compile(fileNames: string[], options: ts.CompilerOptions): void 
     var program = ts.createProgram(fileNames, options);
     var emitResult = program.emit();
 
-    var allDiagnostics = ts.getPreEmitDiagnostics(program).concat(emitResult.diagnostics);
+    var allDiagnostics = ts.getPreEmitDiagnostics(program);
 
     allDiagnostics.forEach(diagnostic => {
-        var lineChar = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start);
-        console.log(`${diagnostic.file.fileName} (${lineChar.line + 1},${lineChar.character + 1}): ${ts.flattenDiagnosticMessageText(diagnostic.messageText, os.EOL)}`);
+        var { line, character } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start);
+        var message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
+        console.log(`${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`);
     });
 
     var exitCode = emitResult.emitSkipped ? 1 : 0;

@@ -24,15 +24,12 @@ i2 = a2; // no error
 
 //// [typeParameterCompatibilityAccrossDeclarations.js]
 define(["require", "exports"], function (require, exports) {
+    "use strict";
     var a = {
-        x: function (y) {
-            return null;
-        }
+        x: function (y) { return null; }
     };
     var a2 = {
-        x: function (y) {
-            return null;
-        }
+        x: function (y) { return null; }
     };
     var i;
     var i2;

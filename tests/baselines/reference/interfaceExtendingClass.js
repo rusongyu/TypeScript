@@ -23,8 +23,7 @@ i = f;
 var Foo = (function () {
     function Foo() {
     }
-    Foo.prototype.y = function () {
-    };
+    Foo.prototype.y = function () { };
     Object.defineProperty(Foo.prototype, "Z", {
         get: function () {
             return 1;
@@ -33,7 +32,7 @@ var Foo = (function () {
         configurable: true
     });
     return Foo;
-})();
+}());
 var i;
 var r1 = i.x;
 var r2 = i.y();

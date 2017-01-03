@@ -11,15 +11,13 @@ var x       =
 //// [parserSkippedTokens16.js]
 foo();
 Bar;
-{
-}
-{
-}
+{ }
+function Foo() { }
+{ }
 4 + ;
 5;
 var M;
 (function (M) {
-    function a(T) {
-    }
+    function a(T) { }
 })(M || (M = {}));
 var x = ;

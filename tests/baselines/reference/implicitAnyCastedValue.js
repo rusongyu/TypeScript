@@ -104,7 +104,7 @@ var C = (function () {
         return this.foo; // this should not be an error
     };
     return C;
-})();
+}());
 var C1 = (function () {
     function C1() {
         this.getValue = null; // this should be an error
@@ -124,7 +124,7 @@ var C1 = (function () {
         configurable: true
     });
     return C1;
-})();
+}());
 function castedNull() {
     return null; // this should not be an error
 }
@@ -160,7 +160,4 @@ function multipleRets2(x) {
 var bar1 = null;
 var bar2 = undefined;
 var bar3 = 0;
-var array = [
-    null,
-    undefined
-];
+var array = [null, undefined];

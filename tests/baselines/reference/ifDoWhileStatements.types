@@ -1,4 +1,5 @@
 === tests/cases/conformance/statements/ifDoWhileStatements/ifDoWhileStatements.ts ===
+
 interface I {
 >I : I
 
@@ -48,12 +49,14 @@ class D<T>{
 function F(x: string): number { return 42; }
 >F : (x: string) => number
 >x : string
+>42 : 42
 
 function F2(x: number): boolean { return x < 42; }
 >F2 : (x: number) => boolean
 >x : number
 >x < 42 : boolean
 >x : number
+>42 : 42
 
 module M {
 >M : typeof M
@@ -95,12 +98,22 @@ module N {
 
 // literals
 if (true) { }
+>true : true
+
 while (true) { }
+>true : true
+
 do { }while(true)
+>true : true
 
 if (null) { }
+>null : null
+
 while (null) { }
+>null : null
+
 do { }while(null)
+>null : null
 
 if (undefined) { }
 >undefined : undefined
@@ -112,20 +125,40 @@ do { }while(undefined)
 >undefined : undefined
 
 if (0.0) { }
+>0.0 : 0
+
 while (0.0) { }
+>0.0 : 0
+
 do { }while(0.0)
+>0.0 : 0
 
 if ('a string') { }
+>'a string' : "a string"
+
 while ('a string') { }
+>'a string' : "a string"
+
 do { }while('a string')
+>'a string' : "a string"
 
 if ('') { }
+>'' : ""
+
 while ('') { }
+>'' : ""
+
 do { }while('')
+>'' : ""
 
 if (/[a-z]/) { }
+>/[a-z]/ : RegExp
+
 while (/[a-z]/) { }
+>/[a-z]/ : RegExp
+
 do { }while(/[a-z]/)
+>/[a-z]/ : RegExp
 
 if ([]) { }
 >[] : undefined[]
@@ -138,12 +171,18 @@ do { }while([])
 
 if ([1, 2]) { }
 >[1, 2] : number[]
+>1 : 1
+>2 : 2
 
 while ([1, 2]) { }
 >[1, 2] : number[]
+>1 : 1
+>2 : 2
 
 do { }while([1, 2])
 >[1, 2] : number[]
+>1 : 1
+>2 : 2
 
 if ({}) { }
 >{} : {}
@@ -157,26 +196,35 @@ do { }while({})
 if ({ x: 1, y: 'a' }) { }
 >{ x: 1, y: 'a' } : { x: number; y: string; }
 >x : number
+>1 : 1
 >y : string
+>'a' : "a"
 
 while ({ x: 1, y: 'a' }) { }
 >{ x: 1, y: 'a' } : { x: number; y: string; }
 >x : number
+>1 : 1
 >y : string
+>'a' : "a"
 
 do { }while({ x: 1, y: 'a' })
 >{ x: 1, y: 'a' } : { x: number; y: string; }
 >x : number
+>1 : 1
 >y : string
+>'a' : "a"
 
 if (() => 43) { }
 >() => 43 : () => number
+>43 : 43
 
 while (() => 43) { }
 >() => 43 : () => number
+>43 : 43
 
 do { }while(() => 43)
 >() => 43 : () => number
+>43 : 43
 
 if (new C()) { }
 >new C() : C
@@ -208,6 +256,7 @@ do { }while(new D<C>())
 // references
 var a = true;
 >a : boolean
+>true : true
 
 if (a) { }
 >a : boolean
@@ -220,6 +269,7 @@ do { }while(a)
 
 var b = null;
 >b : any
+>null : null
 
 if (b) { }
 >b : any
@@ -245,6 +295,7 @@ do { }while(c)
 
 var d = 0.0;
 >d : number
+>0.0 : 0
 
 if (d) { }
 >d : number
@@ -257,6 +308,7 @@ do { }while(d)
 
 var e = 'a string';
 >e : string
+>'a string' : "a string"
 
 if (e) { }
 >e : string
@@ -269,6 +321,7 @@ do { }while(e)
 
 var f = '';
 >f : string
+>'' : ""
 
 if (f) { }
 >f : string
@@ -281,6 +334,7 @@ do { }while(f)
 
 var g = /[a-z]/
 >g : RegExp
+>/[a-z]/ : RegExp
 
 if (g) { }
 >g : RegExp
@@ -307,6 +361,8 @@ do { }while(h)
 var i = [1, 2];
 >i : number[]
 >[1, 2] : number[]
+>1 : 1
+>2 : 2
 
 if (i) { }
 >i : number[]
@@ -334,7 +390,9 @@ var k = { x: 1, y: 'a' };
 >k : { x: number; y: string; }
 >{ x: 1, y: 'a' } : { x: number; y: string; }
 >x : number
+>1 : 1
 >y : string
+>'a' : "a"
 
 if (k) { }
 >k : { x: number; y: string; }
@@ -349,6 +407,7 @@ function fn(x?: string): I { return null; }
 >fn : (x?: string) => I
 >x : string
 >I : I
+>null : null
 
 if (fn()) { }
 >fn() : I
