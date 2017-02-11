@@ -39,7 +39,7 @@
         ],
         "no-internal-module": true,
         "no-trailing-whitespace": true,
-        "no-inferrable-types": true,
+        "no-inferrable-types": [true],
         "no-null-keyword": true,
         "boolean-trivia": true,
         "type-operator-spacing": true,
